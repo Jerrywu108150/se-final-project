@@ -12,4 +12,6 @@ public class InsertionSort {
         return dataset.size();
     }
 
+    pubpub void addNumber 
+
 }
