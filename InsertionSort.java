@@ -3,7 +3,6 @@ import java.util.*;
 public class InsertionSort {
 
     protected ArrayList<Integer> dataset;
-    private Scanner sc=new Scanner(System.in);
 
     public InsertionSort(ArrayList<Integer> dataset) {
         this.dataset = new ArrayList<Integer>(dataset);
