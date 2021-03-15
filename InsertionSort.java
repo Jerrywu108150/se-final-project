@@ -9,10 +9,11 @@ public class InsertionSort {
         this.dataset = new ArrayList<Integer>(dataset);
     }
     
-    public void display(){
-        for(int i=0;i<countNumber();i++){
+    public void display() {
+        int cn=countNumber();
+        for(int i=0;i<cn;i++){
             System.out.print(dataset.get(i));
-            if(i<countNumber()-1)System.out.print(" ");
+            if(i<cn-1)System.out.print(" ");
         }
         System.out.println();
     }
@@ -48,7 +49,7 @@ public class InsertionSort {
     
     public boolean search(int n1, int n2) {
         boolean notEmpty=false;
-        int max,min;
+        int max, min, cn=countNumber();
         if(n1>n2){
             max=n1;
             min=n2;
@@ -56,10 +57,12 @@ public class InsertionSort {
             max=n2;
             min=n1;
         }
-        for(int i=0;i<countNumber();i++)
-        if(dataset.get(i)<=max&&dataset.get(i)>=min){
-            System.out.print(dataset.get(i)+" ");
-            notEmpty=true;
+        for(int i=0;i<cn;i++){
+            int di=dataset.get(i);
+            if(di<=max&&di>=min){
+                System.out.print(di+" ");
+                if(!notEmpty)notEmpty=true;
+            }
         }
         System.out.println();
         return notEmpty;
@@ -67,29 +70,64 @@ public class InsertionSort {
 
     public boolean edit(int target, int modify) {
         boolean targetExist=false;
-        for(int i=0;i<countNumber();i++)
+        int cn=countNumber();
+        for(int i=0;i<cn;i++)
         if(dataset.get(i)==target) {
             dataset.set(i,modify);
-            targetExist=true;
+            if(!targetExist)targetExist=true;
         }
         return targetExist;
     }
     
     public boolean delete(int target) {
         boolean targetExist=false;
-        for(int i=0;i<countNumber();i++)
+        int cn=countNumber();
+        for(int i=0;i<cn;i++)
         if(dataset.get(i)==target){
             dataset.remove(i);
-            targetExist=true;
+            if(!targetExist)targetExist=true;
         }
         return targetExist;
     }
     
     public double mean() {
         double sum=0;
-        for(int i=0;i<countNumber();i++)
+        int cn=countNumber();
+        for(int i=0;i<cn;i++)
         sum+=dataset.get(i);
-        return sum/countNumber();
+        return sum/cn;
     }
     
+    public int median() {
+        int cn=countNumber();
+        if(cn%2==0)
+        return (int)Math.round((dataset.get(cn/2)+dataset.get(cn/2+1))/2);
+        else
+        return dataset.get(cn/2+1);
+    }
+    
+    public void quartile() {
+        int first, second, third, cn=countNumber();
+        if(cn%2==0)
+        second=(int)Math.round((dataset.get(cn/2)+dataset.get(cn/2+1))/2);
+        else
+        second=dataset.get(cn/2+1);
+        if(cn%4==0){
+            first=(int)Math.round((dataset.get(cn/4)+dataset.get(cn/4+1))/2);
+            third=(int)Math.round((dataset.get(cn/4*3)+dataset.get(cn/4*3+1))/2);
+        }else{
+            first=dataset.get(cn/4+1);
+            third=dataset.get(cn-cn/4);
+        }
+        System.out.printf("%d %d %d",first ,second, third);
+    }
+    
+    public double sd() {
+        int m=(int)Math.round(mean());
+        int cn=countNumber();
+        int v=0;
+        for(int i=0;i<cn;i++)
+        v+=Math.pow(dataset.get(i),2);
+        return Math.sqrt(v/cn-m*m);
+    }
 }
