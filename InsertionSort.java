@@ -11,7 +11,7 @@ public class InsertionSort {
     
     public void display() {
         int cn=countNumber();
-        for(int i=0;i<cn;i++){
+        for(int i=0;i<cn;i++) {
             System.out.print(dataset.get(i));
             if(i<cn-1)System.out.print(" ");
         }
@@ -34,7 +34,8 @@ public class InsertionSort {
         dataset.add(newNumber);
     }
     
-    public void random(int amount, int n1, int n2) {
+    public boolean random(int amount, int n1, int n2) {
+        if(amount<=0)return false;
         int max, min;
         if(n1>n2){
             max=n1;
@@ -45,6 +46,7 @@ public class InsertionSort {
         }
         for(int i=0;i<amount;i++)
         addNumber((int)(Math.random()*(max-min+1)+min));
+        return true;
     }
     
     public boolean search(int n1, int n2) {
