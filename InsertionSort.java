@@ -39,8 +39,12 @@ public class InsertionSort {
         int modify=sc.nextInt();
         boolean empty=true;
         for(int i=0;i<countNumber();i++) {
-
+            if(dataset.get(i)==target){
+            dataset.set(i,modify);
+            empty=false;
+            }
         }
+        if(empty)edit();
     }
 
 
