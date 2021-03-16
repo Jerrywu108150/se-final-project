@@ -3,7 +3,7 @@ import java.util.*;
 public class InsertionSort {
 
     protected ArrayList<Integer> dataset;
-
+		
     public InsertionSort(ArrayList<Integer> dataset) {
         this.dataset = new ArrayList<Integer>(dataset);
     }
@@ -28,9 +28,12 @@ public class InsertionSort {
     public int countNumber() {
         return dataset.size();
     }
-
-    public void addNumber(int newNumber) {
-        dataset.add(newNumber);
+	
+	//改成接收變動參數int...因為一次可能輸入多個數字
+    public void addNumber(int...newNumber) {
+		for(int i:newNumber){
+        	dataset.add(i);
+		}
     }
     
     public boolean random(int amount, int n1, int n2) {
