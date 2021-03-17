@@ -51,6 +51,7 @@ public class FromBigToSmall extends InsertionSort {
         for (int i = 1; i < cn; i++) {
             int n = copy.get(i);
             int j = i - 1;
+            tc++;
             while (j >= 0 && copy.get(j) < n) {
                 copy.set(j + 1, copy.get(j));
                 j--;
