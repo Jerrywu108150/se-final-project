@@ -3,7 +3,7 @@ import java.util.*;
 public class InsertionSort {
 
     protected ArrayList<Integer> dataset;
-
+		
     public InsertionSort(ArrayList<Integer> dataset) {
         this.dataset = new ArrayList<Integer>(dataset);
     }
@@ -28,9 +28,12 @@ public class InsertionSort {
     public int countNumber() {
         return dataset.size();
     }
-
-    public void addNumber(int newNumber) {
-        dataset.add(newNumber);
+	
+	//改成接收變動參數int...因為一次可能輸入多個數字
+    public void addNumber(int...newNumber) {
+		for(int i:newNumber){
+        	dataset.add(i);
+		}
     }
     
     public boolean random(int amount, int n1, int n2) {
@@ -79,13 +82,14 @@ public class InsertionSort {
         }
         return targetExist;
     }
-    
+   //當刪掉元素的同時，data.size()會變小，但cn不變（錯誤)。故加上cn-- 
     public boolean delete(int target) {
         boolean targetExist=false;
         int cn=countNumber();
         for(int i=0;i<cn;i++)
         if(dataset.get(i)==target){
             dataset.remove(i);
+			cn--;
             if(!targetExist)targetExist=true;
         }
         return targetExist;
@@ -98,29 +102,26 @@ public class InsertionSort {
         sum+=dataset.get(i);
         return sum/cn;
     }
-    
+   //0~9,所以索引值須再-1 
     public int median() {
         int cn=countNumber();
         if(cn%2==0)
-        return (int)Math.round((dataset.get(cn/2)+dataset.get(cn/2+1))/2);
+        return (int)Math.round((dataset.get(cn/2-1)+dataset.get(cn/2))/2);
         else
-        return dataset.get(cn/2+1);
+        return dataset.get(cn/2);
     }
-    
+    //median的步驟重複到了
     public void quartile() {
         int first, second, third, cn=countNumber();
-        if(cn%2==0)
-        second=(int)Math.round((dataset.get(cn/2)+dataset.get(cn/2+1))/2);
-        else
-        second=dataset.get(cn/2+1);
+
         if(cn%4==0){
-            first=(int)Math.round((dataset.get(cn/4)+dataset.get(cn/4+1))/2);
-            third=(int)Math.round((dataset.get(cn/4*3)+dataset.get(cn/4*3+1))/2);
+            first=(int)Math.round((dataset.get(cn/4-1)+dataset.get(cn/4))/2);
+            third=(int)Math.round((dataset.get(cn/4*3-1)+dataset.get(cn/4*3))/2);
         }else{
-            first=dataset.get(cn/4+1);
-            third=dataset.get(cn-cn/4);
+            first=dataset.get(cn/4);
+            third=dataset.get(cn-cn/4-1);
         }
-        System.out.printf("%d %d %d",first ,second, third);
+        System.out.printf("%d %d %d",first ,median(), third);
     }
     
     public double sd() {
