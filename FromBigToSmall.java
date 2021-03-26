@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class FromBigToSmall extends InsertionSort {
 
@@ -7,8 +8,49 @@ public class FromBigToSmall extends InsertionSort {
     }
 
     public void stepByStep() {
+    	File f = new File("log.txt"); 
+    	
         int cn=countNumber();
-        for (int i = 1; i < cn; i++) {
+        
+        try {
+ 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
+ 		   
+ 		   
+ 		  for (int i = 1; i < cn; i++) {
+ 	            int n = dataset.get(i);
+ 	            int j = i - 1;
+ 	            while (j >= 0 && dataset.get(j) < n) {
+ 	                dataset.set(j + 1, dataset.get(j));
+ 	                j--;
+ 	            }
+ 	            dataset.set(j + 1, n);
+ 	            
+ 	            System.out.print("Step " + i + ": ");
+ 	           bw.write("Step " + i + ": ");
+ 	            for (int k = 0; k < cn; k++) {
+ 	                System.out.print(dataset.get(k));
+ 	                int num = dataset.get(k);
+ 	                bw.write(""+num);
+ 	                if (k < cn - 1) {
+ 	                    System.out.print(" ");
+ 	                	bw.write(" ");
+ 	                }
+ 	            }
+ 	            System.out.println();
+ 	            bw.write("\r\n");
+ 	        }
+ 		   bw.flush();
+ 		   bw.close();
+ 		   
+ 	      } catch (IOException ex) {
+ 	         ex.printStackTrace();
+ 	      }
+        
+    }
+    
+    public void spinSlash() {
+        int cn=countNumber();
+        for (int i=1;i<cn;i++) {
             int n = dataset.get(i);
             int j = i - 1;
             while (j >= 0 && dataset.get(j) < n) {
@@ -16,19 +58,7 @@ public class FromBigToSmall extends InsertionSort {
                 j--;
             }
             dataset.set(j + 1, n);
-            System.out.print("Step " + i + ": ");
-            for (int k = 0; k < cn; k++) {
-                System.out.print(dataset.get(k));
-                if (k < cn - 1)
-                    System.out.print(" ");
-            }
-            System.out.println();
         }
-    }
-    
-    public void spinSlash() {
-        int cn=countNumber();
-        Collections.sort(dataset,Collections.reverseOrder());
         for (int k = 0; k < cn; k++) {
             System.out.print(dataset.get(k));
             if (k < cn - 1)
