@@ -137,4 +137,41 @@ public class InsertionSort {
             v += Math.pow(dataset.get(i), 2);
         return Math.sqrt(v / cn - m * m);
     }
+
+    /*confidence interval, CI(幾個標準差)*/
+	public static double[] ci(sd_num){
+		/*一個標準差區間 68.2%*/
+		/*兩個標準差區間 95.4%*/
+		/*兩個標準差區間 99.7%*/
+		double sd = getstandardDeviaction();
+		double mean = getMeanValue();
+		
+		/*[0]信賴區間下限 [1]信賴區間上限*/
+		double [] ci_range = new double[2];
+		ci_range[0] = mean - sd*sd_num;
+		ci_range[1] = mean + sd*sd_num;
+	    return ci_range;
+	}
+	/*get standard deviaction*/
+	public static double getstandardDeviaction(){
+	    double sum = 0;
+	    double mean = getMeanValue();
+	    for (int i=0; i<dataset.size(); i++)
+	    {
+	    	sum+=Math.pow((dataset.get(i)-mean), 2);
+	    }
+	    double sd = Math.pow(sum/dataset.size(), 0.5);
+	    return sd;
+	}
+	
+	public static double getMeanValue(){
+	    double sum = 0;
+	    for (int i = 0; i<dataset.size();i++)
+	    {
+	    	sum+=dataset.get(i);
+	    }
+	    double meansValue = sum/dataset.size();
+	    System.out.println(meansValue);
+	    return meansValue;
+	}
 }
