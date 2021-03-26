@@ -139,7 +139,7 @@ public class InsertionSort {
     }
 
     /*confidence interval, CI(幾個標準差)*/
-	public static double[] ci(sd_num){
+	public static double[] ci(double sd_num){
 		/*一個標準差區間 68.2%*/
 		/*兩個標準差區間 95.4%*/
 		/*兩個標準差區間 99.7%*/
