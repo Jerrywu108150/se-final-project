@@ -117,16 +117,18 @@ public class InsertionSort {
             return dataset.get(cn / 2);
     }
 
-    public void quartile() {
-        int first, third, cn = countNumber();
+    public int[] quartile() {
+        int cn = countNumber();
+        int[] q=new int[3];
+        q[1] = median();
         if (cn % 4 == 0) {
-            first = (int) Math.round((dataset.get(cn / 4 - 1) + dataset.get(cn / 4)) / 2);
-            third = (int) Math.round((dataset.get(cn / 4 * 3 - 1) + dataset.get(cn / 4 * 3)) / 2);
+            q[0] = (int) Math.round((dataset.get(cn / 4 - 1) + dataset.get(cn / 4)) / 2);
+            q[2] = (int) Math.round((dataset.get(cn / 4 * 3 - 1) + dataset.get(cn / 4 * 3)) / 2);
         } else {
-            first = dataset.get(cn / 4);
-            third = dataset.get(cn - cn / 4 - 1);
+            q[0] = dataset.get(cn / 4);
+            q[2] = dataset.get(cn - cn / 4 - 1);
         }
-        System.out.printf("%d %d %d", first, median(), third);
+        return q;
     }
 
     public double sd() {
@@ -139,12 +141,12 @@ public class InsertionSort {
     }
 
     /*confidence interval, CI(幾個標準差)*/
-	public static double[] ci(double sd_num){
+	public double[] ci(int sd_num){
 		/*一個標準差區間 68.2%*/
 		/*兩個標準差區間 95.4%*/
-		/*兩個標準差區間 99.7%*/
-		double sd = getstandardDeviaction();
-		double mean = getMeanValue();
+		/*三個標準差區間 99.7%*/
+		double sd = sd();
+		double mean = mean();
 		
 		/*[0]信賴區間下限 [1]信賴區間上限*/
 		double [] ci_range = new double[2];
@@ -152,26 +154,5 @@ public class InsertionSort {
 		ci_range[1] = mean + sd*sd_num;
 	    return ci_range;
 	}
-	/*get standard deviaction*/
-	public static double getstandardDeviaction(){
-	    double sum = 0;
-	    double mean = getMeanValue();
-	    for (int i=0; i<dataset.size(); i++)
-	    {
-	    	sum+=Math.pow((dataset.get(i)-mean), 2);
-	    }
-	    double sd = Math.pow(sum/dataset.size(), 0.5);
-	    return sd;
-	}
 	
-	public static double getMeanValue(){
-	    double sum = 0;
-	    for (int i = 0; i<dataset.size();i++)
-	    {
-	    	sum+=dataset.get(i);
-	    }
-	    double meansValue = sum/dataset.size();
-	    System.out.println(meansValue);
-	    return meansValue;
-	}
 }
