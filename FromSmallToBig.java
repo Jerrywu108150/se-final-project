@@ -27,16 +27,7 @@ public class FromSmallToBig extends InsertionSort {
     }
     
     public void spinSlash() {
-        int cn=countNumber();
-        for (int i=1;i<cn;i++) {
-            int n = dataset.get(i);
-            int j = i - 1;
-            while (j >= 0 && dataset.get(j) > n) {
-                dataset.set(j + 1, dataset.get(j));
-                j--;
-            }
-            dataset.set(j + 1, n);
-        }
+        Collections.sort(dataset);
         for (int k = 0; k < cn; k++) {
             System.out.print(dataset.get(k));
             if (k < cn - 1)
