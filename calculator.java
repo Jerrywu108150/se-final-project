@@ -10,33 +10,32 @@ import java.nio.file.Paths;
 
 
 
-public class calculator extends JPanel {
+public class calculator extends JPanel implements ItemListener{
    private static final int ROWS = 10;
    private static final int COLS = 50;
-   private static final String[] BUTTON_NAMES = { "insertion_sort" };
+   private static final String BUTTON_NAMES[] = { "insertion sort", "test2","reverse",
+   "count number","add number","random","search","edit","delete","mean","median","quartile","standard deviation",
+   "big to small","small to big"};
    private static final int GAP = 3;
+   static JComboBox c1;
+   static JButton b=new JButton("Previous step");
+   static JButton b2=new JButton("Next step");
    private JTextArea inputTextArea = new JTextArea(ROWS, COLS);
    private JTextArea outputTextArea = new JTextArea(ROWS, COLS);
    private static final JButton button = new JButton();
-   
    private int[] data;
 
 
    public calculator() {
-      JPanel buttonPanel = new JPanel(new GridLayout(2, 6, GAP, 0));
-      
-      
-      for (String btnName : BUTTON_NAMES) {
-    	    
-    	  buttonPanel.add(button);
-    	  button.setText(btnName);
-    	 
-      }
+      JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
       outputTextArea.setFocusable(false);
       outputTextArea.setEditable(false);
-
       setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
       setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+      c1 = new JComboBox(BUTTON_NAMES);
+      buttonPanel.add(c1);
+      buttonPanel.add(b);
+      buttonPanel.add(b2);
       add(buttonPanel);
       add(putInTitledScrollPane(inputTextArea, "Input Text"));
       add(putInTitledScrollPane(outputTextArea, "Output Text"));
@@ -46,6 +45,7 @@ public class calculator extends JPanel {
       
    }
 
+
    private JPanel putInTitledScrollPane(JComponent component,
          String title) {
       JPanel wrapperPanel = new JPanel(new BorderLayout());
@@ -53,18 +53,22 @@ public class calculator extends JPanel {
       wrapperPanel.add(new JScrollPane(component));
       return wrapperPanel;
    }
-
+   
    private static void createAndShowGui() {
-    calculator mainPanel = new calculator();
+       JFrame f = new JFrame("frame");
+       calculator s = new calculator();
+       f.setLayout(new FlowLayout());
 
-      JFrame frame = new JFrame("calculator");
-      frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      frame.getContentPane().add(mainPanel);
-      frame.pack();
-      frame.setLocationByPlatform(true);
-      frame.setVisible(true);
+       
+       f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       
-      
+       f.setSize(400, 300);
+ 
+       f.show();
+       f.getContentPane().add(s);
+       f.pack();
+       f.setLocationByPlatform(true);
+       f.setVisible(true); 
    }
    public void functionbutton(){
     //link insertion sort with button
@@ -140,10 +144,20 @@ public class calculator extends JPanel {
    }
    
    public static void main(String[] args) {
+	   
       SwingUtilities.invokeLater(new Runnable() {
          public void run() {
             createAndShowGui();
          }
       });
    }
+
+
+@Override
+public void itemStateChanged(ItemEvent e) {
+	// TODO Auto-generated method stub
+	
 }
+
+}
+
