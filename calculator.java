@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class calculator extends JPanel implements ItemListener{
    private static final int ROWS = 10;
    private static final int COLS = 50;
-   private static final String BUTTON_NAMES[] = { "insertion sort", "test2","reverse",
+   private static final String BUTTON_NAMES[] = { "insertion sort","reverse",
    "count number","add number","random","search","edit","delete","mean","median","quartile","standard deviation",
    "big to small","small to big"};
    private static final int GAP = 3;
