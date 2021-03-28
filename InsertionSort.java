@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class InsertionSort {
 
@@ -19,12 +20,32 @@ public class InsertionSort {
     }
 
     public void reverse() {
-        for (int i = countNumber() - 1; i >= 0; i--) {
-            System.out.print(dataset.get(i));
-            if (i > 0)
-                System.out.print(" ");
-        }
-        System.out.println();
+    	File f = new File("log.txt");
+    	
+    	try {
+   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
+   		   
+   		bw.write("display the dataset in reverse: ");
+   		   
+   		   for (int i = countNumber() - 1; i >= 0; i--) {
+   			   int num = dataset.get(i);
+   			   
+   			   bw.write(""+num);
+   			   
+   			   System.out.print(dataset.get(i));
+   			   if (i > 0) {
+   				   bw.write(" ");
+   				   System.out.print(" ");
+   			   }
+   		   }
+   		   
+   	        
+   		   bw.flush();
+   		   bw.close();
+   		   
+   	      } catch (IOException ex) {
+   	         ex.printStackTrace();
+   	      }
     }
 
     public int countNumber() {
@@ -140,15 +161,11 @@ public class InsertionSort {
         return Math.sqrt(v / cn - m * m);
     }
 
-    /*confidence interval, CI(幾個標準差)*/
+
 	public double[] ci(int sd_num){
-		/*一個標準差區間 68.2%*/
-		/*兩個標準差區間 95.4%*/
-		/*三個標準差區間 99.7%*/
 		double sd = sd();
 		double mean = mean();
 		
-		/*[0]信賴區間下限 [1]信賴區間上限*/
 		double [] ci_range = new double[2];
 		ci_range[0] = mean - sd*sd_num;
 		ci_range[1] = mean + sd*sd_num;
