@@ -70,10 +70,14 @@ public class TestBigToSmall{
 		user1.spinSlash();
 		System.out.println(user1.median());
 
+		
+		int[] q = user1.quartile();
 		System.out.println("-------------------------");
 		System.out.println("find the quartiles:");
-		user1.quartile();
-		System.out.println("");
+		System.out.print(" "+q[0]);
+		System.out.print(" "+q[1]);
+		System.out.print(" "+q[2]);
+		System.out.println();
 
 		System.out.println("-------------------------");
 		System.out.println("find standard diviation:");
