@@ -162,7 +162,7 @@ public class InsertionSort {
     }
 
 
-	public double[] ci(int sd_num){
+	public double[] ci(double sd_num){
 		double sd = sd();
 		double mean = mean();
 		
