@@ -22,6 +22,7 @@ public class calculator extends JPanel implements ItemListener{
    static JButton b2=new JButton("Next step");
    private JTextArea inputTextArea = new JTextArea(ROWS, COLS);
    private JTextArea outputTextArea = new JTextArea(ROWS, COLS);
+   private JTextArea addTextArea = new JTextArea(5, COLS);
    private static final JButton button = new JButton();
    private int[] data;
    ArrayList<Integer> userdata=new ArrayList<Integer>();
@@ -77,15 +78,26 @@ public class calculator extends JPanel implements ItemListener{
        f.show();
        f.getContentPane().add(s);
        f.pack();
-       f.setLocationByPlatform(true);
+       f.setLocationByPlatform(false);
        f.setVisible(true); 
    }
    
    
-   public void functionbutton(){
-    //link insertion sort with button
-
-
+   public void addnum(){
+    JFrame f = new JFrame("frame");       
+    JPanel addPanel = new JPanel(new GridLayout(1, 3));
+    setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
+    setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    addPanel.add(putInTitledScrollPane(addTextArea, "Input Number"));
+    f.setLayout(new FlowLayout());
+    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    f.setTitle("Please add number");
+    f.setSize(400, 300);
+    f.show();
+    f.getContentPane().add(addPanel);
+    f.pack();
+    f.setLocationByPlatform(false);
+    f.setVisible(true); 
 
    }
    
@@ -120,6 +132,7 @@ public class calculator extends JPanel implements ItemListener{
                     break;
                 case "add number":
                     System.out.println("add number");
+                    addnum();
                     break;
                 case "random":
                     System.out.println("random");
