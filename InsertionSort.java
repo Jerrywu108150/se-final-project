@@ -11,12 +11,31 @@ public class InsertionSort {
 
     public void display() {
         int cn = countNumber();
-        for (int i = 0; i < cn; i++) {
-            System.out.print(dataset.get(i));
-            if (i < cn - 1)
-                System.out.print(" ");
-        }
-        System.out.println();
+        
+        File f = new File("data.txt");
+    	
+    	try {
+   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
+   		   
+   		   for (int i = 0; i < cn; i++) {
+   			   int num = dataset.get(i);
+   			   
+   			   bw.write(""+num);
+   			   
+   			   System.out.print(dataset.get(i));
+   			   if (i < cn - 1) {
+   				   bw.write(" ");
+   				   System.out.print(" ");
+   			   }
+   		   }
+   		   
+   	        
+   		   bw.flush();
+   		   bw.close();
+   		   
+   	      } catch (IOException ex) {
+   	         ex.printStackTrace();
+   	      }
     }
 
     public void reverse() {
@@ -84,16 +103,29 @@ public class InsertionSort {
             max = n2;
             min = n1;
         }
-        for (int i = 0; i < cn; i++) {
-            int di = dataset.get(i);
-            if (di <= max && di >= min) {
-                System.out.print(di + " ");
-                if (!notEmpty)
-                    notEmpty = true;
-            }
-        }
-        System.out.println();
-        return notEmpty;
+        
+        File f = new File("log.txt");
+    	
+    	try {
+   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
+   		   
+   		   bw.write("data in the range: ");
+   		   for (int i = 0; i < cn; i++) {
+   			   int di = dataset.get(i);
+   			   if (di <= max && di >= min) {
+   				   bw.write(""+di+" ");
+   				   System.out.print(di + " ");
+   				   if (!notEmpty)
+   					   notEmpty = true;
+   			   }
+   		   }  		   
+   		   bw.flush();
+   		   bw.close();  		   
+   	      } catch (IOException ex) {
+   	         ex.printStackTrace();
+   	      }
+    	 System.out.println();
+		   return notEmpty;
     }
 
     public boolean edit(int target, int modify) {
