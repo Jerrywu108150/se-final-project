@@ -22,7 +22,7 @@ public class calculator extends JPanel implements ItemListener{
    static JButton b2=new JButton("Next step");
    private JTextArea inputTextArea = new JTextArea(ROWS, COLS);
    private JTextArea outputTextArea = new JTextArea(ROWS, COLS);
-   private JTextArea addTextArea = new JTextArea(5, COLS);
+   private JTextArea addTextArea = new JTextArea(2, 15);
    private static final JButton button = new JButton();
    private int[] data;
    ArrayList<Integer> userdata=new ArrayList<Integer>();
@@ -33,6 +33,8 @@ public class calculator extends JPanel implements ItemListener{
       JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
       outputTextArea.setFocusable(false);
       outputTextArea.setEditable(false);
+      inputTextArea.setLineWrap(true);
+      outputTextArea.setLineWrap(true);
       setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
       setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
       
@@ -52,7 +54,30 @@ public class calculator extends JPanel implements ItemListener{
       add(putInTitledScrollPane(inputTextArea, "Input Text"));
       add(putInTitledScrollPane(outputTextArea, "Output Text"));
       
-    
+      File f = new File("log.txt");
+     	
+      try {
+		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	       
+		   bw.write("");
+		   bw.flush();
+		   bw.close();
+		   
+	      } catch (IOException ex) {
+	         ex.printStackTrace();
+	      }
+      File fI = new File("data.txt");
+     	
+      try {
+		   BufferedWriter bw = new BufferedWriter( new FileWriter(fI) );   
+	       
+		   bw.write("");
+		   bw.flush();
+		   bw.close();
+		   
+	      } catch (IOException ex) {
+	         ex.printStackTrace();
+	      }
      
       
    }
@@ -83,23 +108,170 @@ public class calculator extends JPanel implements ItemListener{
    }
    
    
-   public void addnum(){
-    JFrame f = new JFrame("frame");       
-    JPanel addPanel = new JPanel(new GridLayout(1, 3));
-    setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
-    setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-    addPanel.add(putInTitledScrollPane(addTextArea, "Input Number"));
-    f.setLayout(new FlowLayout());
-    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    f.setTitle("Please add number");
-    f.setSize(400, 300);
-    f.show();
-    f.getContentPane().add(addPanel);
-    f.pack();
-    f.setLocationByPlatform(false);
-    f.setVisible(true); 
+   
+   
+   protected void addnum_actionPerformed(ActionEvent e) {
+	   load();
+	   
+	   String InputData= JOptionPane.showInputDialog(null,"Please input numbers to add");
+	   
+	   Path path = Paths.get("data.txt");
+		try {
+         String content = Files.readString(path);
+         inputTextArea.setText(content+" "+InputData);
+     }catch (IOException ee){
+         ee.printStackTrace();
+     }	
+	   
+		File f = new File("log.txt");
+	   	
+	       
+	       try {
+	    	   String content = Files.readString(path);
+	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	 	       
+	 		   bw.write("old dataset: "+ content +"\n\rinput dataset: "+InputData+"\n\rnew dataset: " + content+" "+InputData);
+	 		   bw.flush();
+	 		   bw.close();
+	 		   
+	 	      } catch (IOException ex) {
+	 	         ex.printStackTrace();
+	 	      }
+	       
+	        output();   
+	}
+   
+   protected void deletenum_actionPerformed(ActionEvent e) {
+	   load();
+	   
+	   String InputData= JOptionPane.showInputDialog(null,"Please input a number to delete");
+	   Scanner sc = new Scanner(InputData);	
+	   
+	   int Input = sc.nextInt();
+	   
+		FromSmallToBig user1=new FromSmallToBig(userdata);
+		user1.addNumber(data);
+		user1.display();
+		user1.delete(Input);
+		
+		File f = new File("log.txt");
+		Path path = Paths.get("data.txt");
+	       
+	       try {
+	    	   String content = Files.readString(path);
+	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	 	       
 
-   }
+	 		   bw.write("old dataset: "+ content);
+	 		   bw.write("\n\rdelete number: "+ Input);
+	 		   user1.delete(Input);
+	 		   user1.display();
+	 		   content = Files.readString(path);
+	 		   bw.write("\n\rnew dataset: "+ content);
+	 		   inputTextArea.setText(content);
+	 		   bw.flush();
+	 		   bw.close();
+	 		   
+	 	      } catch (IOException ex) {
+	 	         ex.printStackTrace();
+	 	      }
+	       
+	        output();   
+	}
+   
+   protected void randomnum_actionPerformed(ActionEvent e) {
+	   load();
+	   
+	   String InputData1= JOptionPane.showInputDialog(null,"Please input the number of data: ");
+	   Scanner sc1 = new Scanner(InputData1);
+	   int Input1 = sc1.nextInt();
+	   String InputData2= JOptionPane.showInputDialog(null,"Please input min number: ");
+	   Scanner sc2 = new Scanner(InputData2);
+	   int Input2 = sc2.nextInt();
+	   String InputData3= JOptionPane.showInputDialog(null,"Please input max number: ");
+	   Scanner sc3 = new Scanner(InputData3);
+	   int Input3 = sc3.nextInt();
+	   
+	    FromSmallToBig user1=new FromSmallToBig(userdata);
+		user1.random(Input1,Input2,Input3);
+		user1.display();
+		
+		File f = new File("log.txt");
+		Path path = Paths.get("data.txt");
+	       
+	       try {
+	    	   String content = Files.readString(path);
+	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	 	       
+	 		   bw.write("random dataset: "+ content);
+	 		   inputTextArea.setText(content);
+	 		   bw.flush();
+	 		   bw.close();
+	 		   
+	 	      } catch (IOException ex) {
+	 	         ex.printStackTrace();
+	 	      }
+	       
+	        output();   
+	}
+   
+   protected void search_actionPerformed(ActionEvent e) {
+	    load();
+	    
+	    String InputData1= JOptionPane.showInputDialog(null,"Please input the min rage of data: ");
+		Scanner sc1 = new Scanner(InputData1);
+		int Input1 = sc1.nextInt();
+		String InputData2= JOptionPane.showInputDialog(null,"Please input the max rage of data: ");
+		Scanner sc2 = new Scanner(InputData2);
+		int Input2 = sc2.nextInt();
+		
+		FromSmallToBig user1=new FromSmallToBig(userdata);
+		user1.addNumber(data);
+		user1.search(Input1,Input2);
+		
+		output();
+		
+	}
+   
+   protected void editenum_actionPerformed(ActionEvent e) {
+	   load();
+	   
+	   String InputData1= JOptionPane.showInputDialog(null,"Please input a number to be edited");
+	   Scanner sc1 = new Scanner(InputData1);	
+	   int Input1 = sc1.nextInt();
+	   String InputData2= JOptionPane.showInputDialog(null,"Please input a number to edit");
+	   Scanner sc2 = new Scanner(InputData2);	
+	   int Input2 = sc2.nextInt();
+	   
+		FromSmallToBig user1=new FromSmallToBig(userdata);
+		user1.addNumber(data);
+		user1.display();
+		
+		File f = new File("log.txt");
+		Path path = Paths.get("data.txt");
+	       
+	       try {
+	    	   String content = Files.readString(path);
+	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	 	       
+
+	 		   bw.write("old dataset: "+ content);
+	 		   bw.write("\n\rdata be edited: "+ Input1);
+	 		   bw.write("\n\rdata edit to: "+ Input2);
+	 		   user1.edit(Input1,Input2);
+	 		   user1.display();
+	 		   content = Files.readString(path);
+	 		   bw.write("\n\rnew dataset: "+ content);
+	 		   inputTextArea.setText(content);
+	 		   bw.flush();
+	 		   bw.close();
+	 		   
+	 	      } catch (IOException ex) {
+	 	         ex.printStackTrace();
+	 	      }
+	       
+	        output();   
+	}
    
    private class Previous_step_ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -132,19 +304,23 @@ public class calculator extends JPanel implements ItemListener{
                     break;
                 case "add number":
                     System.out.println("add number");
-                    addnum();
+                    addnum_actionPerformed(e);
                     break;
                 case "random":
                     System.out.println("random");
+                    randomnum_actionPerformed(e);
                     break;
                 case "search":
                     System.out.println("search");
+                    search_actionPerformed(e);
                     break;
                 case "edit":
                     System.out.println("edit");
+                    editenum_actionPerformed(e);
                     break;
                 case "delete":
                     System.out.println("delete");
+                    deletenum_actionPerformed(e);
                     break;
                 case "mean":
                 	mean_actionPerformed(e);
