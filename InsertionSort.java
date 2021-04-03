@@ -2,79 +2,80 @@ import java.util.*;
 import java.io.*;
 
 public class InsertionSort {
-
+    protected int stepCount = 0;
     protected ArrayList<Integer> dataset;
+    protected ArrayList<String> record = new ArrayList<String>();
 
     public InsertionSort(ArrayList<Integer> dataset) {
         this.dataset = new ArrayList<Integer>(dataset);
     }
 
-    public void display() {
+    public boolean display() {
+        if (countNumber() == 0)
+            return false;
         int cn = countNumber();
-        
         File f = new File("data.txt");
-    	
-    	try {
-   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
-   		   
-   		   for (int i = 0; i < cn; i++) {
-   			   int num = dataset.get(i);
-   			   
-   			   bw.write(""+num);
-   			   
-   			   System.out.print(dataset.get(i));
-   			   if (i < cn - 1) {
-   				   bw.write(" ");
-   				   System.out.print(" ");
-   			   }
-   		   }
-   		   
-   	        
-   		   bw.flush();
-   		   bw.close();
-   		   
-   	      } catch (IOException ex) {
-   	         ex.printStackTrace();
-   	      }
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            for (int i = 0; i < cn; i++) {
+                int num = dataset.get(i);
+                bw.write("" + num);
+                System.out.print(dataset.get(i));
+                if (i < cn - 1) {
+                    bw.write(" ");
+                    System.out.print(" ");
+                }
+            }
+            bw.flush();
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 
-    public void reverse() {
-    	File f = new File("log.txt");
-    	
-    	try {
-   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
-   		   
-   		bw.write("display the dataset in reverse: ");
-   		   
-   		   for (int i = countNumber() - 1; i >= 0; i--) {
-   			   int num = dataset.get(i);
-   			   
-   			   bw.write(""+num);
-   			   
-   			   System.out.print(dataset.get(i));
-   			   if (i > 0) {
-   				   bw.write(" ");
-   				   System.out.print(" ");
-   			   }
-   		   }
-   		   
-   	        
-   		   bw.flush();
-   		   bw.close();
-   		   
-   	      } catch (IOException ex) {
-   	         ex.printStackTrace();
-   	      }
+    public boolean reverse() {
+        if (countNumber() == 0)
+            return false;
+        File f = new File("log.txt");
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            bw.write("display the dataset in reverse: ");
+            for (int i = countNumber() - 1; i >= 0; i--) {
+                int num = dataset.get(i);
+                bw.write("" + num);
+                System.out.print(dataset.get(i));
+                if (i > 0) {
+                    bw.write(" ");
+                    System.out.print(" ");
+                }
+            }
+            bw.flush();
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 
     public int countNumber() {
         return dataset.size();
     }
 
-    public void addNumber(int... newNumber) {
-        for (int i : newNumber) {
+    public boolean addNumber(int... newNumber) {
+        if (newNumber.length == 0)
+            return false;
+        stepCount = 0;
+        int nl = newNumber.length;
+        String str = "Current dataset:";
+        for (int i = 0; i < nl; i++) {
             dataset.add(i);
+            str += Integer.toString(i);
+            if (i < nl - 1)
+                str += " ";
         }
+        record.add(str);
+        return true;
     }
 
     public boolean random(int amount, int n1, int n2) {
@@ -103,29 +104,26 @@ public class InsertionSort {
             max = n2;
             min = n1;
         }
-        
         File f = new File("log.txt");
-    	
-    	try {
-   		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );
-   		   
-   		   bw.write("data in the range: ");
-   		   for (int i = 0; i < cn; i++) {
-   			   int di = dataset.get(i);
-   			   if (di <= max && di >= min) {
-   				   bw.write(""+di+" ");
-   				   System.out.print(di + " ");
-   				   if (!notEmpty)
-   					   notEmpty = true;
-   			   }
-   		   }  		   
-   		   bw.flush();
-   		   bw.close();  		   
-   	      } catch (IOException ex) {
-   	         ex.printStackTrace();
-   	      }
-    	 System.out.println();
-		   return notEmpty;
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            bw.write("data in the range: ");
+            for (int i = 0; i < cn; i++) {
+                int di = dataset.get(i);
+                if (di <= max && di >= min) {
+                    bw.write("" + di + " ");
+                    System.out.print(di + " ");
+                    if (!notEmpty)
+                        notEmpty = true;
+                }
+            }
+            bw.flush();
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println();
+        return notEmpty;
     }
 
     public boolean edit(int target, int modify) {
@@ -172,7 +170,7 @@ public class InsertionSort {
 
     public int[] quartile() {
         int cn = countNumber();
-        int[] q=new int[3];
+        int[] q = new int[3];
         q[1] = median();
         if (cn % 4 == 0) {
             q[0] = (int) Math.round((dataset.get(cn / 4 - 1) + dataset.get(cn / 4)) / 2);
@@ -193,15 +191,32 @@ public class InsertionSort {
         return Math.sqrt(v / cn - m * m);
     }
 
+    public double[] ci(double sd_num) {
+        double sd = sd();
+        double mean = mean();
+        double[] ci_range = new double[2];
+        ci_range[0] = mean - sd * sd_num;
+        ci_range[1] = mean + sd * sd_num;
+        return ci_range;
+    }
 
-	public double[] ci(double sd_num){
-		double sd = sd();
-		double mean = mean();
-		
-		double [] ci_range = new double[2];
-		ci_range[0] = mean - sd*sd_num;
-		ci_range[1] = mean + sd*sd_num;
-	    return ci_range;
-	}
-	
+    public boolean previous() {
+        record.remove(record.size() - 1);
+        if (record.size() == 0)
+            return false;
+        String str = record.get(record.size() - 1);
+        System.out.println(str);
+        if (str.substring(0, 4).equals("Step") || str.substring(0, 16).equals("Current dataset:")) {
+            if (stepCount > 0)
+                stepCount--;
+            dataset.clear();
+            StringTokenizer st = new StringTokenizer(str);
+            st.nextToken();
+            st.nextToken();
+            while (st.hasMoreTokens()) {
+                dataset.add(Integer.parseInt(st.nextToken()));
+            }
+        }
+        return true;
+    }
 }
