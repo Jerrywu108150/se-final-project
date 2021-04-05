@@ -199,14 +199,16 @@ public class InsertionSort {
         ci_range[1] = mean + sd * sd_num;
         return ci_range;
     }
-    public int rel(){
-        int cn=countNumber();
-        int x=0,y=0;
-        for (int i = 0; i < cn; i++)
+
+    public double ppmcc() {
+        int cn = countNumber();
+        int x = 0, y = 0;
+        for (int i = 0; i < cn; i++) {
             x += dataset.get(i);
             y += dataset.get(i);
-        int Sxy=x*y-cn*x/cn*y/cn;
-        return Sxy/(Math.squrt(Math.pow(x, 2)*(cn-1)/cn)*Math.pow(y, 2)*(cn-1)/cn));
+        }
+        int Sxy = x * y - cn * x / cn * y / cn;
+        return Sxy / (Math.sqrt(Math.pow(x, 2) * (cn - 1) / cn) * Math.pow(y, 2) * (cn - 1) / cn);
     }
 
     public boolean previous() {
