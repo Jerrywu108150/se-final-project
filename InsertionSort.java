@@ -69,7 +69,7 @@ public class InsertionSort {
         int nl = newNumber.length;
         String str = "Current dataset:";
         for (int i = 0; i < nl; i++) {
-            dataset.add(i);
+            dataset.add(newNumber[i]);
             str += Integer.toString(i);
             if (i < nl - 1)
                 str += " ";
