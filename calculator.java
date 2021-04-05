@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,13 +14,15 @@ import java.nio.file.Paths;
 public class calculator extends JPanel implements ItemListener{
    private static final int ROWS = 10;
    private static final int COLS = 50;
-   private static final String BUTTON_NAMES[] = { "insertion sort","reverse",
+   private static final String BUTTON_NAMES[] = { "reverse",
    "count number","add number","random","search","edit","delete","mean","median","quartile","standard deviation",
    "big to small","small to big"};
    private static final int GAP = 3;
    static JComboBox c1 = new JComboBox();
    static JButton b=new JButton("Previous step");
    static JButton b2=new JButton("Next step");
+   static JButton b3=new JButton("insertion sort");
+   static JButton b4=new JButton("reset");
    private JTextArea inputTextArea = new JTextArea(ROWS, COLS);
    private JTextArea outputTextArea = new JTextArea(ROWS, COLS);
    private JTextArea addTextArea = new JTextArea(2, 15);
@@ -47,9 +50,14 @@ public class calculator extends JPanel implements ItemListener{
       c1.addActionListener(new JboxActionListener());
       b.addActionListener(new Previous_step_ActionListener());
       b2.addActionListener(new Next_step_ActionListener());
+      b3.addActionListener(new insertion_sort_actionPerformed());
+      b4.addActionListener(new reset_ActionListener());
+      buttonPanel.add(b3);
       buttonPanel.add(c1);
       buttonPanel.add(b);
       buttonPanel.add(b2);
+      buttonPanel.add(b4);
+      
       add(buttonPanel);
       add(putInTitledScrollPane(inputTextArea, "Input Text"));
       add(putInTitledScrollPane(outputTextArea, "Output Text"));
@@ -284,16 +292,22 @@ public class calculator extends JPanel implements ItemListener{
 			System.out.println("Next step");
 		}
 	}
-   
+   private class reset_ActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			clear();
+		}
+	}
+   public void clear() {
+	 inputTextArea.setText("");
+	 outputTextArea.setText("");
+	 addTextArea.setText("");
+   }
    private class JboxActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String action = (String) c1.getSelectedItem();//get the selected item
 
             switch (action) {
-                case "insertion sort":
-                	insertion_sort_actionPerformed(e);
-                    System.out.println("insertion sort");
-                    break;
+                
                 case "count number":
                 	count_number_actionPerformed(e);
                     System.out.println("count number");
@@ -351,8 +365,8 @@ public class calculator extends JPanel implements ItemListener{
 		}
 	}
    
-   
-   protected void insertion_sort_actionPerformed(ActionEvent e) {
+   private class insertion_sort_actionPerformed implements ActionListener{
+	   public void actionPerformed(ActionEvent e) {
 	    load();
 		
 		
@@ -363,6 +377,7 @@ public class calculator extends JPanel implements ItemListener{
 		output();
 		
 	}
+   }
    
    protected void bts_actionPerformed(ActionEvent e) {
 	    load();
