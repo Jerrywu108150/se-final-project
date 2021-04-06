@@ -6,3 +6,4 @@
 吳竣宇設計界面的格式及內容,顏志騰利用action listener連接insertion sort,碩約優化界面
 3/26 討論:
 將介面結合下拉式選單並優化,並新增上一步sort及下一步sort的功能鍵	
+
