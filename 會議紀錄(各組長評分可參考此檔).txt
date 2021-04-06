@@ -8,11 +8,15 @@
 將介面結合下拉式選單並優化,並新增上一步sort及下一步sort的功能鍵	
 4/02 討論:
 add number的繼承出了問題,由謝瑞峰和顏志騰修正
+將insertion sort獨立出來,並將reset和上一步及下一步的功能開始設計
 4/03 討論:
 江亦賢負責報告ppt,並由許育瑋和施賀騰上台報告
 4/04 討論:
 柏儒新增了相關係數
 4/05 討論:
+林碩約負責介面的優化並設計新增reset的版面
+
+
 第一階段的統整如下
 public class InsertionSort
 {
@@ -44,5 +48,3 @@ public boolean aSpinSlash() //output result directly
 public int aTimeComplexity()
 public boolean aNext()
 }
-4/06 討論:
-將insertion sort獨立出來,並將reset和上一步及下一步的功能開始設計
