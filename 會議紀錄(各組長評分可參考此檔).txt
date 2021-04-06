@@ -3,7 +3,7 @@
 由施賀騰,許育瑋,江亦賢對介面和insertion sort以及其他功能進行測試並回報錯誤
 由吳竣宇,顏志騰,林碩約進行介面的設計
 3/22 討論:
-吳竣宇設計界面的格式及內容,顏志騰利用action listener連接insertion sort,碩約優化界面
+吳竣宇設計界面的格式及內容,顏志騰利用action listener連接insertion sort,林碩約優化界面
 3/26 討論:
 將介面結合下拉式選單並優化,並新增上一步sort及下一步sort的功能鍵	
 4/02 討論:
