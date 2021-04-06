@@ -1,0 +1,46 @@
+3/12 討論:
+由謝瑞峰,吳振榮,吳伯儒做出insertion sort,並在sort之後做出搜尋,增加數字,編輯,刪除數字,平均值,中位數,標準差,四分位數,以及繼承insertion sort的檔案做出由小到大排及由大到小排的子類class.
+由施賀騰,許育瑋,江亦賢對介面和insertion sort以及其他功能進行測試並回報錯誤
+由吳竣宇,顏志騰,林碩約進行介面的設計
+3/22 討論:
+吳竣宇設計界面的格式及內容,顏志騰利用action listener連接insertion sort,碩約優化界面
+3/26 討論:
+將介面結合下拉式選單並優化,並新增上一步sort及下一步sort的功能鍵	
+4/02 討論:
+add number的繼承出了問題,由謝瑞峰和顏志騰修正
+4/03 討論:
+江亦賢負責報告ppt,並由許育瑋和施賀騰上台報告
+4/04 討論:
+柏儒新增了相關係數
+4/05 討論:
+第一階段的統整如下
+public class InsertionSort
+{
+protected int stepCount
+protected ArrayList<int>dataset
+protected ArrayList<String>record
+public InsertionSort(ArrayList<int>)
+public boolean display()
+public boolean reverse() //display in reverse order
+public int countNumber() //ArrayList.size()
+public boolean addNumber(int...) //add more numbers to the arraylist
+public boolean random(int,int,int) //generate random numbers
+public boolean search(int,int) //display number(s) in the specific range
+public boolean edit(int,int) //modify a number to another number
+public boolean delete(int) //delete number(s)
+public double mean() //arithmetic mean
+public int median()
+public int[] quartile()
+public double sd() //standard deviation
+public double[] ci(double) //confidence interval
+public double ppmcc() //correlation coefficient
+public boolean previous()
+public boolean dStepByStep() //sort & display all steps to the result
+public boolean dSpinSlash() //output result directly
+public int dTimeComplexity()
+public boolean dNext()
+public boolean aStepByStep() //sort & display all steps to the result
+public boolean aSpinSlash() //output result directly
+public int aTimeComplexity()
+public boolean aNext()
+}
