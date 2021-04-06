@@ -44,3 +44,5 @@ public boolean aSpinSlash() //output result directly
 public int aTimeComplexity()
 public boolean aNext()
 }
+4/06 討論:
+將insertion sort獨立出來,並將reset和上一步及下一步的功能開始設計
