@@ -1,0 +1,4 @@
+1.請先輸入數字至input text area
+2.請先按insertion sort
+3.sort後可以自選combo box裡的功能去執行(上一步及下一步功能還未完善,所以還不能使用)
+4.程式的讀取資料會暫存在data.txt 執行的歷史紀錄會暫存在log.txt
