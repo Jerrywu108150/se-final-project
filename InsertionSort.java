@@ -34,29 +34,7 @@ public class InsertionSort {
         return true;
     }
 
-    public boolean reverse() {
-        if (countNumber() == 0)
-            return false;
-        File f = new File("log.txt");
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-            bw.write("display the dataset in reverse: ");
-            for (int i = countNumber() - 1; i >= 0; i--) {
-                int num = dataset.get(i);
-                bw.write("" + num);
-                System.out.print(dataset.get(i));
-                if (i > 0) {
-                    bw.write(" ");
-                    System.out.print(" ");
-                }
-            }
-            bw.flush();
-            bw.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return true;
-    }
+
 
     public int countNumber() {
         return dataset.size();
@@ -78,21 +56,7 @@ public class InsertionSort {
         return true;
     }
 
-    public boolean random(int amount, int n1, int n2) {
-        if (amount <= 0)
-            return false;
-        int max, min;
-        if (n1 > n2) {
-            max = n1;
-            min = n2;
-        } else {
-            max = n2;
-            min = n1;
-        }
-        for (int i = 0; i < amount; i++)
-            addNumber((int) (Math.random() * (max - min + 1) + min));
-        return true;
-    }
+    
 
     public boolean search(int n1, int n2) {
         boolean notEmpty = false;
@@ -216,6 +180,17 @@ public class InsertionSort {
         if (record.size() == 0)
             return false;
         String str = record.get(record.size() - 1);
+        
+        try {
+        	File f = new File("log.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            bw.write("" + str);
+            bw.flush();
+            bw.close();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
         System.out.println(str);
         if (str.substring(0, 4).equals("Step") || str.substring(0, 16).equals("Current dataset:")) {
             if (stepCount > 0)
@@ -367,6 +342,8 @@ public class InsertionSort {
                 }
                 System.out.println();
                 bw.write("\r\n");
+                
+               
             }
             bw.flush();
             bw.close();
@@ -409,7 +386,7 @@ public class InsertionSort {
 
     public boolean aNext() {
         stepCount++;
-        if (stepCount > countNumber())
+        if (stepCount >= countNumber())
             return false;
         String str = "Step " + stepCount + ": ";
         int cn = countNumber();
