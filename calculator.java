@@ -126,7 +126,10 @@ public class calculator extends JPanel implements ItemListener{
    protected void addnum_actionPerformed(ActionEvent e) {
 	   load();
 	   
-	   String InputData= JOptionPane.showInputDialog(null,"Please input numbers to add");
+	   String InputData= JOptionPane.showInputDialog(null,"Please input number to add");
+	   Scanner sc = new Scanner(InputData);	
+	   
+	   int Input = sc.nextInt();
 	   
 	   Path path = Paths.get("data.txt");
 		try {
@@ -142,7 +145,7 @@ public class calculator extends JPanel implements ItemListener{
 	       try {
 	    	   String content = Files.readString(path);
 	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
-	 	       
+	 		   user.addNumber(Input);
 	 		   bw.write("old dataset: "+ content +"\n\rinput dataset: "+InputData+"\n\rnew dataset: " + content+" "+InputData);
 	 		   bw.flush();
 	 		   bw.close();
@@ -161,11 +164,6 @@ public class calculator extends JPanel implements ItemListener{
 	   Scanner sc = new Scanner(InputData);	
 	   
 	   int Input = sc.nextInt();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		user1.display();
-		user1.delete(Input);
 		
 		File f = new File("log.txt");
 		Path path = Paths.get("data.txt");
@@ -177,8 +175,8 @@ public class calculator extends JPanel implements ItemListener{
 
 	 		   bw.write("old dataset: "+ content);
 	 		   bw.write("\n\rdelete number: "+ Input);
-	 		   user1.delete(Input);
-	 		   user1.display();
+	 		   user.delete(Input);
+	 		   user.display();
 	 		   content = Files.readString(path);
 	 		   bw.write("\n\rnew dataset: "+ content);
 	 		   inputTextArea.setText(content);
@@ -203,10 +201,7 @@ public class calculator extends JPanel implements ItemListener{
 		String InputData2= JOptionPane.showInputDialog(null,"Please input the max rage of data: ");
 		Scanner sc2 = new Scanner(InputData2);
 		int Input2 = sc2.nextInt();
-		
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		user1.search(Input1,Input2);
+		user.search(Input1,Input2);
 		
 		output();
 		
@@ -221,10 +216,6 @@ public class calculator extends JPanel implements ItemListener{
 	   String InputData2= JOptionPane.showInputDialog(null,"Please input a number to edit");
 	   Scanner sc2 = new Scanner(InputData2);	
 	   int Input2 = sc2.nextInt();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		user1.display();
 		
 		File f = new File("log.txt");
 		Path path = Paths.get("data.txt");
@@ -237,8 +228,8 @@ public class calculator extends JPanel implements ItemListener{
 	 		   bw.write("old dataset: "+ content);
 	 		   bw.write("\n\rdata be edited: "+ Input1);
 	 		   bw.write("\n\rdata edit to: "+ Input2);
-	 		   user1.edit(Input1,Input2);
-	 		   user1.display();
+	 		   user.edit(Input1,Input2);
+	 		   user.display();
 	 		   content = Files.readString(path);
 	 		   bw.write("\n\rnew dataset: "+ content);
 	 		   inputTextArea.setText(content);
@@ -254,6 +245,8 @@ public class calculator extends JPanel implements ItemListener{
    
    private class Previous_step_ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			
+			
 			System.out.println("Previous step");
 			b2.setEnabled(true);
 			user.previous();
@@ -402,9 +395,7 @@ public class calculator extends JPanel implements ItemListener{
    protected void bts_actionPerformed(ActionEvent e) {
 	    load();
 		
-		FromBigToSmall user2=new FromBigToSmall(userdata);
-		user2.addNumber(data);
-		user2.stepByStep();
+		user.dStepByStep();
 		
 		output();
 		
@@ -413,24 +404,18 @@ public class calculator extends JPanel implements ItemListener{
    protected void stb_actionPerformed(ActionEvent e) {
 	   	load();
 		
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		user1.stepByStep();
+		user.aStepByStep();
 		
 		output();
 		
 	}
    
    protected void count_number_actionPerformed(ActionEvent e) {
-	    load();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		
+	    load();	
 	   
 	   File f = new File("log.txt");
    	
-       int num = user1.countNumber();
+       int num = user.countNumber();
        try {
  		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
  	       
@@ -448,15 +433,11 @@ public class calculator extends JPanel implements ItemListener{
   
    
    protected void mean_actionPerformed(ActionEvent e) {
-	    load();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		
+	    load();		
 	   
 	   File f = new File("log.txt");
   	
-      double num = user1.mean();
+      double num = user.mean();
       try {
 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
 	       
@@ -474,14 +455,10 @@ public class calculator extends JPanel implements ItemListener{
 
    protected void median_actionPerformed(ActionEvent e) {
 	    load();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		
-	   
+			   
 	   File f = new File("log.txt");
   	
-      int num = user1.median();
+      int num = user.median();
       try {
 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
 	       
@@ -499,14 +476,11 @@ public class calculator extends JPanel implements ItemListener{
    
    protected void quartiles_actionPerformed(ActionEvent e) {
 	    load();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
 		
 	   
 	   File f = new File("log.txt");
   	
-      int[] num = user1.quartile();
+      int[] num = user.quartile();
       try {
 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
 	       
@@ -525,13 +499,9 @@ public class calculator extends JPanel implements ItemListener{
    protected void standard_diviation_actionPerformed(ActionEvent e) {
 	    load();
 	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		
-	   
 	   File f = new File("log.txt");
   	
-      double num = user1.sd();
+      double num = user.sd();
       try {
 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
 	       
