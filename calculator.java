@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 public class calculator extends JPanel implements ItemListener{
    private static final int ROWS = 10;
    private static final int COLS = 50;
-   private static final String BUTTON_NAMES[] = { "reverse",
-   "count number","add number","random","search","edit","delete","mean","median","quartile","standard deviation",
+   private static final String BUTTON_NAMES[] = { 
+   "count number","add number","search","edit","delete","mean","median","quartile","standard deviation",
    "big to small","small to big"};
    private static final int GAP = 3;
    static JComboBox c1 = new JComboBox();
@@ -29,6 +29,8 @@ public class calculator extends JPanel implements ItemListener{
    private static final JButton button = new JButton();
    private int[] data;
    ArrayList<Integer> userdata=new ArrayList<Integer>();
+   InsertionSort user = null;
+   int step;
    
 
 
@@ -61,7 +63,10 @@ public class calculator extends JPanel implements ItemListener{
       add(buttonPanel);
       add(putInTitledScrollPane(inputTextArea, "Input Text"));
       add(putInTitledScrollPane(outputTextArea, "Output Text"));
-      
+      c1.setEnabled(false);
+      b2.setEnabled(false);
+      b4.setEnabled(false);
+      b.setEnabled(false);
       File f = new File("log.txt");
      	
       try {
@@ -187,41 +192,7 @@ public class calculator extends JPanel implements ItemListener{
 	        output();   
 	}
    
-   protected void randomnum_actionPerformed(ActionEvent e) {
-	   load();
-	   
-	   String InputData1= JOptionPane.showInputDialog(null,"Please input the number of data: ");
-	   Scanner sc1 = new Scanner(InputData1);
-	   int Input1 = sc1.nextInt();
-	   String InputData2= JOptionPane.showInputDialog(null,"Please input min number: ");
-	   Scanner sc2 = new Scanner(InputData2);
-	   int Input2 = sc2.nextInt();
-	   String InputData3= JOptionPane.showInputDialog(null,"Please input max number: ");
-	   Scanner sc3 = new Scanner(InputData3);
-	   int Input3 = sc3.nextInt();
-	   
-	    FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.random(Input1,Input2,Input3);
-		user1.display();
-		
-		File f = new File("log.txt");
-		Path path = Paths.get("data.txt");
-	       
-	       try {
-	    	   String content = Files.readString(path);
-	 		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
-	 	       
-	 		   bw.write("random dataset: "+ content);
-	 		   inputTextArea.setText(content);
-	 		   bw.flush();
-	 		   bw.close();
-	 		   
-	 	      } catch (IOException ex) {
-	 	         ex.printStackTrace();
-	 	      }
-	       
-	        output();   
-	}
+   
    
    protected void search_actionPerformed(ActionEvent e) {
 	    load();
@@ -284,12 +255,25 @@ public class calculator extends JPanel implements ItemListener{
    private class Previous_step_ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Previous step");
+			b2.setEnabled(true);
+			user.previous();
+			output();
+			
+			if((++step)==(user.countNumber()-2)) b.setEnabled(false);
 		}
 	}
    
    private class Next_step_ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Next step");
+			b.setEnabled(true);
+
+			user.aNext();
+			
+			output();
+			
+			if((--step)==0) b2.setEnabled(false);
+			
 		}
 	}
    private class reset_ActionListener implements ActionListener {
@@ -301,6 +285,38 @@ public class calculator extends JPanel implements ItemListener{
 	 inputTextArea.setText("");
 	 outputTextArea.setText("");
 	 addTextArea.setText("");
+	 c1.setEnabled(false);
+	 b3.setEnabled(true);
+	 b.setEnabled(false);
+	 inputTextArea.setFocusable(true);
+	 inputTextArea.setEditable(true);
+	 step = 0;
+	 
+	 File f = new File("log.txt");
+  	
+     try {
+		   BufferedWriter bw = new BufferedWriter( new FileWriter(f) );   
+	       
+		   bw.write("");
+		   bw.flush();
+		   bw.close();
+		   
+	      } catch (IOException ex) {
+	         ex.printStackTrace();
+	      }
+     File fI = new File("data.txt");
+    	
+     try {
+		   BufferedWriter bw = new BufferedWriter( new FileWriter(fI) );   
+	       
+		   bw.write("");
+		   bw.flush();
+		   bw.close();
+		   
+	      } catch (IOException ex) {
+	         ex.printStackTrace();
+	      }
+	 
    }
    private class JboxActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -312,18 +328,12 @@ public class calculator extends JPanel implements ItemListener{
                 	count_number_actionPerformed(e);
                     System.out.println("count number");
                     break;
-                case "reverse":
-                	reverse_actionPerformed(e);
-                    System.out.println("reverse");
-                    break;
+    
                 case "add number":
                     System.out.println("add number");
                     addnum_actionPerformed(e);
                     break;
-                case "random":
-                    System.out.println("random");
-                    randomnum_actionPerformed(e);
-                    break;
+               
                 case "search":
                     System.out.println("search");
                     search_actionPerformed(e);
@@ -373,7 +383,17 @@ public class calculator extends JPanel implements ItemListener{
 		FromSmallToBig user1=new FromSmallToBig(userdata);
 		user1.addNumber(data);
 		user1.stepByStep();
-		
+		c1.setEnabled(true);
+		b2.setEnabled(true);
+		b3.setEnabled(false);
+		b4.setEnabled(true);
+	
+		inputTextArea.setFocusable(false);
+	    inputTextArea.setEditable(false);
+	    user = new InsertionSort(userdata);
+	    user.addNumber(data);
+	    step = user.countNumber()-1;
+	    
 		output();
 		
 	}
@@ -425,17 +445,7 @@ public class calculator extends JPanel implements ItemListener{
         output();
        
 	}
-   
-   protected void reverse_actionPerformed(ActionEvent e) {
-	    load();
-	   
-		FromSmallToBig user1=new FromSmallToBig(userdata);
-		user1.addNumber(data);
-		user1.reverse();
-      
-        output();
-      
-	}
+  
    
    protected void mean_actionPerformed(ActionEvent e) {
 	    load();
