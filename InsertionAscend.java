@@ -19,15 +19,15 @@ public class InsertionAscend extends Insertion {
         }
         result.clear();
         int size = dataset.size();
-        for (int i = 1; i < size; i++) {
-            String temp = dataset.get(i);
-            int j = i - 1;
+        for (; stepCount < size; stepCount++) {
+            String temp = dataset.get(stepCount);
+            int j = stepCount - 1;
             while (j >= 0 && dataset.get(j).compareTo(temp) > 0) {
                 dataset.set(j + 1, dataset.get(j));
                 j--;
             }
             dataset.set(j + 1, temp);
-            String step = "Step " + i + ":";
+            String step = "Step " + stepCount + ":";
             for (String str : dataset) {
                 step += "  " + str;
             }
@@ -54,11 +54,10 @@ public class InsertionAscend extends Insertion {
     }
 
     public String next() {
-        stepCount++;
-        if (stepCount >= dataset.size() || dataset.size() < 2) {
+        if (stepCount == dataset.size() - 1 || dataset.size() < 2) {
             return null;
         }
-        String temp = dataset.get(stepCount);
+        String temp = dataset.get(++stepCount);
         int j = stepCount - 1;
         while (j >= 0 && dataset.get(j).compareTo(temp) > 0) {
             dataset.set(j + 1, dataset.get(j));
