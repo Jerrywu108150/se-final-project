@@ -12,13 +12,21 @@ public class Sort {
 
     public Sort(ArrayList<String> input) {
         dataset = new ArrayList<String>(input);
+        String temp = "Before sort:";
+        for (String str : input) {
+            temp += "  " + str;
+        }
+        record.add(temp);
     }
 
     public Sort(String... input) {
         dataset = new ArrayList<String>();
-        for (String i : input) {
-            dataset.add(i);
+        String temp = "Before sort:";
+        for (String str : input) {
+            dataset.add(str);
+            temp += "  " + str;
         }
+        record.add(temp);
     }
 
     public ArrayList<String> getResult() {
@@ -30,11 +38,19 @@ public class Sort {
     }
 
     public boolean addString(String... input) {
-        if (input.length == 0)
+        if (input.length == 0) {
             return false;
-        for (String i : input) {
-            dataset.add(i);
         }
+        stepCount = 0;
+        record.clear();
+        for (String str : input) {
+            dataset.add(str);
+        }
+        String temp = "Before sort:";
+        for (String str : dataset) {
+            temp += "  " + str;
+        }
+        record.add(temp);
         return true;
     }
 
@@ -49,26 +65,31 @@ public class Sort {
             max = n2;
             min = n1;
         }
-        for (int i = 0; i < amount; i++)
+        stepCount = 0;
+        record.clear();
+        for (int i = 0; i < amount; i++) {
             addString(Double.toString(Math.random() * (max - min + 1) + min));
+        }
+        String temp = "Before sort:";
+        for (String str : dataset) {
+            temp += "  " + str;
+        }
+        record.add(temp);
         return true;
     }
 
     public String previous() {
-        record.remove(record.size() - 1);
-        if (record.size() == 0)
+        if (record.size() == 1) {
             return null;
+        }
+        record.remove(stepCount--);
         String temp = record.get(record.size() - 1);
-        if (temp.substring(0, 4).equals("Step") || temp.substring(0, 16).equals("Current dataset:")) {
-            if (stepCount > 0)
-                stepCount--;
-            dataset.clear();
-            StringTokenizer st = new StringTokenizer(temp);
-            st.nextToken();
-            st.nextToken();
-            while (st.hasMoreTokens()) {
-                dataset.add(st.nextToken());
-            }
+        dataset.clear();
+        StringTokenizer st = new StringTokenizer(temp);
+        st.nextToken();
+        st.nextToken();
+        while (st.hasMoreTokens()) {
+            dataset.add(st.nextToken());
         }
         return temp;
     }
