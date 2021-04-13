@@ -2,12 +2,14 @@ import java.util.*;
 
 public class Sort {
     protected int stepCount = 0;
+    protected boolean isNumber = false;
     protected ArrayList<String> dataset;
     protected ArrayList<String> result = new ArrayList<String>();
     protected ArrayList<String> record = new ArrayList<String>();
 
     public Sort() {
         dataset = new ArrayList<String>();
+        isNumber = judgeType();
     }
 
     public Sort(ArrayList<String> input) {
@@ -17,6 +19,7 @@ public class Sort {
             temp += "  " + str;
         }
         record.add(temp);
+        isNumber = judgeType();
     }
 
     public Sort(String... input) {
@@ -27,6 +30,31 @@ public class Sort {
             temp += "  " + str;
         }
         record.add(temp);
+        isNumber = judgeType();
+    }
+
+    public boolean judgeType() {
+        for (String i : dataset) {
+            if (i.charAt(0) != '-' && (i.charAt(0) < '0' || i.charAt(0) > '9')) {
+                return false;
+            } else if (i.indexOf("-") != i.lastIndexOf("-")) {
+                return false;
+            } else if (i.indexOf(".") != i.lastIndexOf(".")) {
+                return false;
+            } else if (i.indexOf(".") == i.length() - 1) {
+                return false;
+            }
+            for (char j : i.toCharArray()) {
+                if (j != '-' && j != '.' && (j < '0' || j > '9')) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean getIsNumber() {
+        return isNumber;
     }
 
     public ArrayList<String> getResult() {
@@ -35,6 +63,10 @@ public class Sort {
 
     public ArrayList<String> getDataset() {
         return dataset;
+    }
+
+    public ArrayList<String> getRecord() {
+        return record;
     }
 
     public boolean addString(String... input) {
@@ -51,12 +83,14 @@ public class Sort {
             temp += "  " + str;
         }
         record.add(temp);
+        isNumber = judgeType();
         return true;
     }
 
-    public boolean random(int amount, double n1, double n2) {
-        if (amount < 1)
+    public boolean randomNumber(int amount, double n1, double n2) {
+        if (amount < 1) {
             return false;
+        }
         double max, min;
         if (n1 > n2) {
             max = n1;
@@ -67,14 +101,60 @@ public class Sort {
         }
         stepCount = 0;
         record.clear();
+        Random r = new Random();
+        String d = null;
         for (int i = 0; i < amount; i++) {
-            addString(Double.toString(Math.random() * (max - min + 1) + min));
+            d += Double.toString(Math.random() * (max - min) + min);
+            switch (r.nextInt(3)) {
+            case 0:
+                d = d.substring(0, d.indexOf("."));
+                break;
+            case 1:
+                d = d.substring(0, d.indexOf(".") + 2);
+                break;
+            case 2:
+                d = d.substring(0, d.indexOf(".") + 3);
+            }
+            dataset.add(d);
         }
         String temp = "Before sort:";
         for (String str : dataset) {
             temp += "  " + str;
         }
         record.add(temp);
+        isNumber = judgeType();
+        return true;
+    }
+
+    public boolean randomString(int amount, int n1, int n2) {
+        if (amount < 1 || n1 < 1 || n2 < 1) {
+            return false;
+        }
+        int max, min;
+        if (n1 > n2) {
+            max = n1;
+            min = n2;
+        } else {
+            max = n2;
+            min = n1;
+        }
+        stepCount = 0;
+        record.clear();
+        Random r = new Random();
+        String d = null;
+        for (int i = 0; i < amount; i++) {
+            int size = r.nextInt(max - min + 1) + min;
+            for (int j = 0; j < size; j++) {
+                d += (char) r.nextInt(94) + 33;
+            }
+            dataset.add(d);
+        }
+        String temp = "Before sort:";
+        for (String str : dataset) {
+            temp += "  " + str;
+        }
+        record.add(temp);
+        isNumber = false;
         return true;
     }
 
