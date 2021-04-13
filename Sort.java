@@ -102,7 +102,7 @@ public class Sort {
         stepCount = 0;
         record.clear();
         Random r = new Random();
-        String d = null;
+        String d = new String();
         for (int i = 0; i < amount; i++) {
             d += Double.toString(Math.random() * (max - min) + min);
             switch (r.nextInt(3)) {
@@ -141,11 +141,11 @@ public class Sort {
         stepCount = 0;
         record.clear();
         Random r = new Random();
-        String d = null;
         for (int i = 0; i < amount; i++) {
             int size = r.nextInt(max - min + 1) + min;
+            String d = new String();
             for (int j = 0; j < size; j++) {
-                d += (char) r.nextInt(94) + 33;
+                d += (char) (r.nextInt(94) + 33);
             }
             dataset.add(d);
         }
