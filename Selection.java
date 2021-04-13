@@ -19,8 +19,7 @@ public class Selection extends Sort {
         }
         result.clear();
         int size = dataset.size();
-        for (int target; stepCount < size - 1; stepCount++) {
-            target = stepCount;
+        for (int target = stepCount; stepCount < size;) {
             if (isNumber) {
                 for (int j = stepCount + 1; j < size; j++) {
                     if (Double.parseDouble(dataset.get(j)) < Double.parseDouble(dataset.get(target))) {
@@ -39,11 +38,12 @@ public class Selection extends Sort {
                 dataset.set(target, dataset.get(stepCount));
                 dataset.set(stepCount, temp);
             }
-            String step = "Step " + stepCount + ":";
+            String step = "Step " + (++stepCount) + ":";
             for (String str : dataset) {
                 step += "  " + str;
             }
             result.add(step);
+            record.add(step);
         }
         return true;
     }
@@ -53,7 +53,7 @@ public class Selection extends Sort {
     }
 
     public String aNext() {
-        if (stepCount == dataset.size() - 1 || dataset.size() < 2) {
+        if (stepCount == dataset.size() || dataset.size() < 2) {
             return null;
         }
         int size = dataset.size(), target = stepCount;
@@ -89,8 +89,7 @@ public class Selection extends Sort {
         }
         result.clear();
         int size = dataset.size();
-        for (int target; stepCount < size - 1; stepCount++) {
-            target = stepCount;
+        for (int target = stepCount; stepCount < size;) {
             if (isNumber) {
                 for (int j = stepCount + 1; j < size; j++) {
                     if (Double.parseDouble(dataset.get(j)) > Double.parseDouble(dataset.get(target))) {
@@ -109,11 +108,12 @@ public class Selection extends Sort {
                 dataset.set(target, dataset.get(stepCount));
                 dataset.set(stepCount, temp);
             }
-            String step = "Step " + stepCount + ":";
+            String step = "Step " + (++stepCount) + ":";
             for (String str : dataset) {
                 step += "  " + str;
             }
             result.add(step);
+            record.add(step);
         }
         return true;
     }
@@ -123,7 +123,7 @@ public class Selection extends Sort {
     }
 
     public String dNext() {
-        if (stepCount == dataset.size() - 1 || dataset.size() < 2) {
+        if (stepCount == dataset.size() || dataset.size() < 2) {
             return null;
         }
         int size = dataset.size(), target = stepCount;
