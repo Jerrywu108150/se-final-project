@@ -103,7 +103,10 @@ public class display {
 		ft = true;
 	}
 	
- Show 20 lines  Show all unchanged lines  Show 20 lines
+	public void start_sort(int type ,String data) {
+		
+		ArrayList<String> input=new ArrayList<String>();
+		Scanner sc = new Scanner(data);
 		while(sc.hasNext()) {
 			input.add(sc.next());
         }
