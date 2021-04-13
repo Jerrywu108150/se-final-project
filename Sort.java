@@ -104,7 +104,7 @@ public class Sort {
         Random r = new Random();
         String d = new String();
         for (int i = 0; i < amount; i++) {
-            d += Double.toString(Math.random() * (max - min) + min);
+            d = Double.toString(Math.random() * (max - min) + min);
             switch (r.nextInt(3)) {
             case 0:
                 d = d.substring(0, d.indexOf("."));
