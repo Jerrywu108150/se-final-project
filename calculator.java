@@ -228,7 +228,7 @@ public class calculator extends JPanel implements ActionListener{
 
        
        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       f.setTitle("Insertion sort Version 21.3.28");
+       f.setTitle("Insertion sort Version 21.4.13");
        f.show();
        f.getContentPane().add(s);
        f.pack();
@@ -298,11 +298,11 @@ public class calculator extends JPanel implements ActionListener{
 				
 				String InputData_Nb= JOptionPane.showInputDialog(null,"Please input the min rage of data: ");
 				Scanner sc_Nb = new Scanner(InputData_Nb);	
-				double bn = sc_Nb.nextInt();
+				double bn = sc_Nb.nextDouble();
 				
 				String InputData_Nc= JOptionPane.showInputDialog(null,"Please input the max rage of data: ");
 				Scanner sc_Nc = new Scanner(InputData_Nc);	
-				double cn = sc_Nc.nextInt();
+				double cn = sc_Nc.nextDouble();
 				
 				Display.get_random_num(an, bn, cn);
 				content = Display.get_content();
@@ -336,8 +336,8 @@ public class calculator extends JPanel implements ActionListener{
 		   b2.setEnabled(true);
 		   N_step--;
 		   if(N_step==0) b.setEnabled(false);
-		   if((N_step==step)&&(type==0)) b2.setEnabled(false);
-		   else if((N_step==(step-1))&&(type==1)) b2.setEnabled(false);
+		   if((N_step==step)&&(type==1)) b2.setEnabled(false);
+		   else if((N_step==(step-1))&&(type==0)) b2.setEnabled(false);
 		  
 	   }
 	   
@@ -347,8 +347,8 @@ public class calculator extends JPanel implements ActionListener{
 		   outputTextArea.setText(content);
 		   b.setEnabled(true);
 		   N_step++;
-		   if((N_step==step)&&(type==0)) b2.setEnabled(false);
-		   else if((N_step==(step-1))&&(type==1)) b2.setEnabled(false);
+		   if((N_step==step)&&(type==1)) b2.setEnabled(false);
+		   else if((N_step==(step-1))&&(type==0)) b2.setEnabled(false);
 	   }
 	   
 	   if(e.getSource()==b4){
@@ -373,7 +373,7 @@ public class calculator extends JPanel implements ActionListener{
 		   c1.setEnabled(true);
 		   c2.setEnabled(false);
 		   c3.setEnabled(false);
-		   Display.reset_log();
+		   Display.reset_ft();
 		   N_step=0;
 		   step = Display.get_size(inputTextArea.getText());
 	   }
@@ -391,7 +391,7 @@ public class calculator extends JPanel implements ActionListener{
    public void output_reset() {
 	   content = "";
 	   outputTextArea.setText(content);
-	   Display.reset_log();
+	   Display.reset_ft();
    }
    
    public void GUI_reset() {
