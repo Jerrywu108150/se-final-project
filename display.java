@@ -83,21 +83,12 @@ public class display {
 	 	} catch (IOException ex) {
 	 		ex.printStackTrace();
 	 	}
+		ft = true;
 		
 	}
 	
-	public void reset_log() {
+	public void reset_ft() {
     	
-		try {
-    		File f=new File("log.txt");
-    		BufferedWriter bw=new BufferedWriter(new FileWriter(f));
-            
-            bw.write("");
-            bw.flush();
-            bw.close();
-	 	} catch (IOException ex) {
-	 		ex.printStackTrace();
-	 	}
 		ft = true;
 	}
 	
@@ -108,6 +99,7 @@ public class display {
 		while(sc.hasNext()) {
 			input.add(sc.next());
         }
+		content = "";
 		insertion = new Insertion(input);
 		selection = new Selection(input);
 		
@@ -115,40 +107,28 @@ public class display {
         
         	insertion.aStepByStep();
         	
-        	try {
-        		ArrayList<String> al=new ArrayList<String>();
-        		File f=new File("log.txt");
-        		al = insertion.getResult();
-        		BufferedWriter bw=new BufferedWriter(new FileWriter(f));
-                for(int i=0;i<al.size();i++){
-                    bw.write(al.get(i)+"\n\r");
-                    bw.flush();
-                }
-                bw.close();
-                Path Input_data = Paths.get("log.txt");
-            	content = Files.readString(Input_data);   
-    	 	} catch (IOException ex) {
-    	 		ex.printStackTrace();
-    	 	}
+        	
+        	ArrayList<String> al=new ArrayList<String>();
+        		
+        	al = insertion.getResult();
+        		
+            for(int i=0;i<al.size();i++){
+              	content += al.get(i)+"\n\r";
+            }  
+
         }else if(type == 1) {
         	
         	selection.aStepByStep();
         	
-        	try {
-        		ArrayList<String> al=new ArrayList<String>();
-        		File f=new File("log.txt");
-        		al = selection.getResult();
-        		BufferedWriter bw=new BufferedWriter(new FileWriter(f));
-                for(int i=0;i<al.size();i++){
-                    bw.write(al.get(i)+"\n\r");
-                    bw.flush();
-                }
-                bw.close();
-                Path Input_data = Paths.get("log.txt");
-            	content = Files.readString(Input_data);   
-    	 	} catch (IOException ex) {
-    	 		ex.printStackTrace();
-    	 	}
+        	
+        	ArrayList<String> al=new ArrayList<String>();
+        		
+        	al = selection.getResult();
+        		
+            for(int i=0;i<al.size();i++){
+                content += al.get(i)+"\n\r";
+            }
+
         }
 	}
 	
@@ -162,7 +142,7 @@ public class display {
 	}
 	
 	public void get_previous_result(int type ,String data) {
-    	System.out.println("previous");
+    	
     	if(ft) {
 			ArrayList<String> input=new ArrayList<String>();
 			Scanner sc = new Scanner(data);
@@ -179,7 +159,7 @@ public class display {
 	}
 	
 	public void get_next_result(int type ,String data) {
-		System.out.println("next");
+		
 		
 		if(ft) {
 			ArrayList<String> input=new ArrayList<String>();
