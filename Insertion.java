@@ -19,6 +19,7 @@ public class Insertion extends Sort {
         }
         result.clear();
         int size = dataset.size();
+        stepCount++;
         for (; stepCount < size; stepCount++) {
             String temp = dataset.get(stepCount);
             int j = stepCount - 1;
@@ -39,6 +40,7 @@ public class Insertion extends Sort {
                 step += "  " + str;
             }
             result.add(step);
+            record.add(step);
         }
         return true;
     }
@@ -69,7 +71,7 @@ public class Insertion extends Sort {
     }
 
     public String aNext() {
-        if (stepCount == dataset.size() - 1 || dataset.size() < 2) {
+        if (stepCount == dataset.size() || dataset.size() < 2) {
             return null;
         }
         String temp = dataset.get(++stepCount);
@@ -100,6 +102,7 @@ public class Insertion extends Sort {
         }
         result.clear();
         int size = dataset.size();
+        stepCount++;
         for (; stepCount < size; stepCount++) {
             String temp = dataset.get(stepCount);
             int j = stepCount - 1;
@@ -120,6 +123,7 @@ public class Insertion extends Sort {
                 step += "  " + str;
             }
             result.add(step);
+            record.add(step);
         }
         return true;
     }
@@ -150,7 +154,7 @@ public class Insertion extends Sort {
     }
 
     public String dNext() {
-        if (stepCount == dataset.size() - 1 || dataset.size() < 2) {
+        if (stepCount == dataset.size() || dataset.size() < 2) {
             return null;
         }
         String temp = dataset.get(++stepCount);
