@@ -255,11 +255,11 @@ public class calculator extends JPanel implements ActionListener {
             Scanner sc_Sa = new Scanner(InputData_Sa);
             int as = sc_Sa.nextInt();
 
-            String InputData_Sb = JOptionPane.showInputDialog(null, "Please input the min range of data: ");
+            String InputData_Sb = JOptionPane.showInputDialog(null, "Please input the min length of data: ");
             Scanner sc_Sb = new Scanner(InputData_Sb);
             int bs = sc_Sb.nextInt();
 
-            String InputData_Sc = JOptionPane.showInputDialog(null, "Please input the max range of data: ");
+            String InputData_Sc = JOptionPane.showInputDialog(null, "Please input the max length of data: ");
             Scanner sc_Sc = new Scanner(InputData_Sc);
             int cs = sc_Sc.nextInt();
 
@@ -278,11 +278,11 @@ public class calculator extends JPanel implements ActionListener {
             Scanner sc_Na = new Scanner(InputData_Na);
             int an = sc_Na.nextInt();
 
-            String InputData_Nb = JOptionPane.showInputDialog(null, "Please input the min length of data: ");
+            String InputData_Nb = JOptionPane.showInputDialog(null, "Please input the min range of data: ");
             Scanner sc_Nb = new Scanner(InputData_Nb);
             double bn = sc_Nb.nextDouble();
 
-            String InputData_Nc = JOptionPane.showInputDialog(null, "Please input the max length of data: ");
+            String InputData_Nc = JOptionPane.showInputDialog(null, "Please input the max range of data: ");
             Scanner sc_Nc = new Scanner(InputData_Nc);
             double cn = sc_Nc.nextDouble();
 
