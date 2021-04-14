@@ -35,7 +35,7 @@ public class display {
 			al = sort.getDataset();
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			for (int i = 0; i < al.size(); i++) {
-				bw.write(al.get(i) + "\t");
+				bw.write(al.get(i) + "   ");
 				bw.flush();
 			}
 			bw.close();
