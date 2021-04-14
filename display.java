@@ -35,7 +35,7 @@ public class display {
 			al = sort.getDataset();
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			for (int i = 0; i < al.size(); i++) {
-				bw.write(al.get(i) + "   ");
+				bw.write(al.get(i) + " ");
 				bw.flush();
 			}
 			bw.close();
@@ -90,7 +90,7 @@ public class display {
 		ft = true;
 	}
 
-	public void start_sort(int type, String data) {
+	public void start_asort(int type, String data) {
 
 		ArrayList<String> input = new ArrayList<String>();
 		Scanner sc = new Scanner(data);
@@ -128,6 +128,45 @@ public class display {
 
 		}
 	}
+	
+	public void start_dsort(int type, String data) {
+
+		ArrayList<String> input = new ArrayList<String>();
+		Scanner sc = new Scanner(data);
+		while (sc.hasNext()) {
+			input.add(sc.next());
+		}
+		sc.close();
+		content = "";
+		insertion = new Insertion(input);
+		selection = new Selection(input);
+
+		if (type == 0) {
+
+			insertion.dStepByStep();
+
+			ArrayList<String> al = new ArrayList<String>();
+
+			al = insertion.getResult();
+
+			for (int i = 0; i < al.size(); i++) {
+				content += al.get(i) + "\n\r";
+			}
+
+		} else if (type == 1) {
+
+			selection.dStepByStep();
+
+			ArrayList<String> al = new ArrayList<String>();
+
+			al = selection.getResult();
+
+			for (int i = 0; i < al.size(); i++) {
+				content += al.get(i) + "\n\r";
+			}
+
+		}
+	}
 
 	public int get_size(String data) {
 		ArrayList<String> input = new ArrayList<String>();
@@ -141,17 +180,6 @@ public class display {
 
 	public void get_previous_result(int type, String data) {
 
-		if (ft) {
-			ArrayList<String> input = new ArrayList<String>();
-			Scanner sc = new Scanner(data);
-			while (sc.hasNext()) {
-				input.add(sc.next());
-			}
-			sc.close();
-			insertion = new Insertion(input);
-			selection = new Selection(input);
-			ft = false;
-		}
 
 		if (type == 0)
 			content = insertion.previous();
@@ -159,7 +187,7 @@ public class display {
 			content = selection.previous();
 	}
 
-	public void get_next_result(int type, String data) {
+	public void get_next_result(int ad,int type, String data) {
 
 		if (ft) {
 			ArrayList<String> input = new ArrayList<String>();
@@ -172,11 +200,17 @@ public class display {
 			selection = new Selection(input);
 			ft = false;
 		}
-		if (type == 0)
-			content = insertion.aNext();
-		else if (type == 1)
-			content = selection.aNext();
-
+		if (ad == 0) {
+			if (type == 0) 
+				content = insertion.aNext();
+			else if (type == 1)
+				content = selection.aNext();
+		}else if(ad == 1) {
+			if (type == 0)
+				content = insertion.dNext();
+			else if (type == 1)
+				content = selection.dNext();
+		}
 	}
 
 	public String get_content() {
