@@ -80,7 +80,7 @@ public class Sort {
         }
         String temp = "Before sort:";
         for (String str : dataset) {
-            temp += "\t\t" + str;
+            temp += "  " + str;
         }
         record.add(temp);
         isNumber = judgeType();
@@ -151,7 +151,7 @@ public class Sort {
         }
         String temp = "Before sort:";
         for (String str : dataset) {
-            temp += "  " + str;
+            temp += "\t" + str;
         }
         record.add(temp);
         isNumber = false;
