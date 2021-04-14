@@ -12,8 +12,7 @@ public class calculator extends JPanel implements ActionListener {
 
    private static final int ROWS = 10;
    private static final int COLS = 50;
-   private static final String BUTTON_NAMES[] = { "count number", "add number", "search", "edit", "delete", "mean",
-         "median", "quartile", "standard deviation", "big to small", "small to big" };
+   private static final String BUTTON_NAMES[] = { "small to big", "big to small" };
    private static final int GAP = 3;
    static JComboBox<String> c1 = new JComboBox<String>();
    static JButton b = new JButton("Previous step");
@@ -28,7 +27,7 @@ public class calculator extends JPanel implements ActionListener {
    private String path = "";
    ArrayList<Integer> userdata = new ArrayList<Integer>();
    public String content;
-   int type = 0;
+   int type = 0, ad = 0;
    int step;
    int N_step = 0;
 
@@ -211,7 +210,7 @@ public class calculator extends JPanel implements ActionListener {
       f.setLayout(new FlowLayout());
 
       f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      f.setTitle("Insertion sort Version 21.4.13");
+      f.setTitle("Insertion sort Version 21.4.14");
       f.setVisible(true);
       ;
       f.getContentPane().add(s);
@@ -252,22 +251,28 @@ public class calculator extends JPanel implements ActionListener {
             output_reset();
 
             String InputData_Sa = JOptionPane.showInputDialog(null, "Please input amount number");
-            Scanner sc_Sa = new Scanner(InputData_Sa);
-            int as = sc_Sa.nextInt();
+            if(InputData_Sa != null) {
+            	Scanner sc_Sa = new Scanner(InputData_Sa);
+            	int as = sc_Sa.nextInt();
 
-            String InputData_Sb = JOptionPane.showInputDialog(null, "Please input the min length of data: ");
-            Scanner sc_Sb = new Scanner(InputData_Sb);
-            int bs = sc_Sb.nextInt();
+            	String InputData_Sb = JOptionPane.showInputDialog(null, "Please input the min length of data: ");
+            	if(InputData_Sb != null) {
+            		Scanner sc_Sb = new Scanner(InputData_Sb);
+            		int bs = sc_Sb.nextInt();
 
-            String InputData_Sc = JOptionPane.showInputDialog(null, "Please input the max length of data: ");
-            Scanner sc_Sc = new Scanner(InputData_Sc);
-            int cs = sc_Sc.nextInt();
-
-            Display.get_random_string(as, bs, cs);
-            content = Display.get_content();
-            inputTextArea.setText(content);
-            inputTextArea.setEditable(false);
-            outputTextArea.setText("Using Random String input");
+            		String InputData_Sc = JOptionPane.showInputDialog(null, "Please input the max length of data: ");
+            		if(InputData_Sc != null) {
+            			Scanner sc_Sc = new Scanner(InputData_Sc);
+            			int cs = sc_Sc.nextInt();
+            			
+            			Display.get_random_string(as, bs, cs);
+            			content = Display.get_content();
+            			inputTextArea.setText(content);
+            			inputTextArea.setEditable(false);
+            			outputTextArea.setText("Using Random String input");
+            		}
+            	}
+            }
             break;
 
          case 3:
@@ -275,22 +280,28 @@ public class calculator extends JPanel implements ActionListener {
             output_reset();
 
             String InputData_Na = JOptionPane.showInputDialog(null, "Please input amount number");
-            Scanner sc_Na = new Scanner(InputData_Na);
-            int an = sc_Na.nextInt();
+            if(InputData_Na != null) {
+            	Scanner sc_Na = new Scanner(InputData_Na);
+            	int an = sc_Na.nextInt();
+            
+            	String InputData_Nb = JOptionPane.showInputDialog(null, "Please input the min range of data: ");
+            	if(InputData_Nb != null) {
+            		Scanner sc_Nb = new Scanner(InputData_Nb);
+            		double bn = sc_Nb.nextDouble();
 
-            String InputData_Nb = JOptionPane.showInputDialog(null, "Please input the min range of data: ");
-            Scanner sc_Nb = new Scanner(InputData_Nb);
-            double bn = sc_Nb.nextDouble();
+            		String InputData_Nc = JOptionPane.showInputDialog(null, "Please input the max range of data: ");
+            		if(InputData_Nc != null) {
+            			Scanner sc_Nc = new Scanner(InputData_Nc);
+            			double cn = sc_Nc.nextDouble();
 
-            String InputData_Nc = JOptionPane.showInputDialog(null, "Please input the max range of data: ");
-            Scanner sc_Nc = new Scanner(InputData_Nc);
-            double cn = sc_Nc.nextDouble();
-
-            Display.get_random_num(an, bn, cn);
-            content = Display.get_content();
-            inputTextArea.setText(content);
-            inputTextArea.setEditable(false);
-            outputTextArea.setText("Using Random Number input");
+            			Display.get_random_num(an, bn, cn);
+            			content = Display.get_content();
+            			inputTextArea.setText(content);
+            			inputTextArea.setEditable(false);
+            			outputTextArea.setText("Using Random Number input");
+            		}
+            	}
+            }
             break;
 
          }
@@ -310,6 +321,28 @@ public class calculator extends JPanel implements ActionListener {
             break;
          }
       }
+      
+      if (e.getSource() == c1) {
+          int index = c1.getSelectedIndex();
+
+          switch (index) {
+          case 0:
+        	  Display.start_asort(type, inputTextArea.getText());
+              content = Display.get_content();
+              outputTextArea.setText(content);
+              step_reset();
+              ad = 0;
+             break;
+          
+          case 1:
+        	  Display.start_dsort(type, inputTextArea.getText());
+              content = Display.get_content();
+              outputTextArea.setText(content);
+              ad = 1;
+              step_reset();
+             break;
+          }
+       }
 
       if (e.getSource() == b) {
          Display.get_previous_result(type, inputTextArea.getText());
@@ -327,7 +360,7 @@ public class calculator extends JPanel implements ActionListener {
       }
 
       if (e.getSource() == b2) {
-         Display.get_next_result(type, inputTextArea.getText());
+         Display.get_next_result(ad,type, inputTextArea.getText());
          content = Display.get_content();
          outputTextArea.setText(content);
          b.setEnabled(true);
@@ -350,18 +383,15 @@ public class calculator extends JPanel implements ActionListener {
          } else if (type == 1) {
             status_label.setText("Now using Selection Sort");
          }
-         Display.start_sort(type, inputTextArea.getText());
+         Display.start_asort(type, inputTextArea.getText());
          content = Display.get_content();
          outputTextArea.setText(content);
          inputTextArea.setEditable(false);
          inputTextArea.setFocusable(false);
-         b.setEnabled(false);
-         b2.setEnabled(true);
          c1.setEnabled(true);
          c2.setEnabled(false);
          c3.setEnabled(false);
-         Display.reset_ft();
-         N_step = 0;
+         step_reset();
          step = Display.get_size(inputTextArea.getText());
       }
 
@@ -388,6 +418,13 @@ public class calculator extends JPanel implements ActionListener {
       c2.setEnabled(true);
       c3.setEnabled(true);
       status_label.setText("Welcome to Sort Program");
+   }
+   
+   public void step_reset() {
+	   b.setEnabled(false);
+       b2.setEnabled(true);
+       Display.reset_ft();
+       N_step = 0;
    }
 
    public static void main(String[] args) {
