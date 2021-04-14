@@ -253,16 +253,28 @@ public class calculator extends JPanel implements ActionListener {
             String InputData_Sa = JOptionPane.showInputDialog(null, "Please input amount number");
             if(InputData_Sa != null) {
             	Scanner sc_Sa = new Scanner(InputData_Sa);
+            	if(!sc_Sa.hasNextInt()) {
+            		outputTextArea.setText("INPUT ERROR");
+            		break;
+            	}
             	int as = sc_Sa.nextInt();
 
             	String InputData_Sb = JOptionPane.showInputDialog(null, "Please input the min length of data: ");
             	if(InputData_Sb != null) {
             		Scanner sc_Sb = new Scanner(InputData_Sb);
+            		if(!sc_Sb.hasNextInt()) {
+                		outputTextArea.setText("INPUT ERROR");
+                		break;
+                	}
             		int bs = sc_Sb.nextInt();
 
             		String InputData_Sc = JOptionPane.showInputDialog(null, "Please input the max length of data: ");
             		if(InputData_Sc != null) {
             			Scanner sc_Sc = new Scanner(InputData_Sc);
+            			if(!sc_Sc.hasNextInt()) {
+                    		outputTextArea.setText("INPUT ERROR");
+                    		break;
+                    	}
             			int cs = sc_Sc.nextInt();
             			
             			Display.get_random_string(as, bs, cs);
@@ -282,16 +294,28 @@ public class calculator extends JPanel implements ActionListener {
             String InputData_Na = JOptionPane.showInputDialog(null, "Please input amount number");
             if(InputData_Na != null) {
             	Scanner sc_Na = new Scanner(InputData_Na);
+            	if(!sc_Na.hasNextInt()) {
+            		outputTextArea.setText("INPUT ERROR");
+            		break;
+            	}
             	int an = sc_Na.nextInt();
             
             	String InputData_Nb = JOptionPane.showInputDialog(null, "Please input the min range of data: ");
             	if(InputData_Nb != null) {
             		Scanner sc_Nb = new Scanner(InputData_Nb);
+            		if(!sc_Nb.hasNextDouble()) {
+                		outputTextArea.setText("INPUT ERROR");
+                		break;
+                	}
             		double bn = sc_Nb.nextDouble();
 
             		String InputData_Nc = JOptionPane.showInputDialog(null, "Please input the max range of data: ");
             		if(InputData_Nc != null) {
             			Scanner sc_Nc = new Scanner(InputData_Nc);
+            			if(!sc_Nc.hasNextDouble()) {
+                    		outputTextArea.setText("INPUT ERROR");
+                    		break;
+                    	}
             			double cn = sc_Nc.nextDouble();
 
             			Display.get_random_num(an, bn, cn);
