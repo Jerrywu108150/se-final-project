@@ -19,7 +19,8 @@ public class Selection extends Sort {
         }
         result.clear();
         int size = dataset.size();
-        for (int target = stepCount; stepCount < size;) {
+        while (stepCount < size) {
+            int target = stepCount;
             if (isNumber) {
                 for (int j = stepCount + 1; j < size; j++) {
                     if (Double.parseDouble(dataset.get(j)) < Double.parseDouble(dataset.get(target))) {
@@ -89,7 +90,8 @@ public class Selection extends Sort {
         }
         result.clear();
         int size = dataset.size();
-        for (int target = stepCount; stepCount < size;) {
+        while (stepCount < size) {
+            int target = stepCount;
             if (isNumber) {
                 for (int j = stepCount + 1; j < size; j++) {
                     if (Double.parseDouble(dataset.get(j)) > Double.parseDouble(dataset.get(target))) {
