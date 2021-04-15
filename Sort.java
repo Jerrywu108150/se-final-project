@@ -173,5 +173,29 @@ public class Sort {
         }
         return temp;
     }
+    
+    public boolean aStepByStep(){
+        return false;
+    }
+    
+    public int aTimeComplexity(){
+        return -1;
+    }
+    
+    public String aNext(){
+        return null;
+    }
+    
+    public boolean dStepByStep(){
+        return false;
+    }
+    
+    public int dTimeComplexity(){
+        return -1;
+    }
+    
+    public String dNext(){
+        return null;
+    }
 
 }
