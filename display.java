@@ -10,8 +10,7 @@ import java.util.Scanner;
 
 public class display {
 	public String content;
-	public Insertion insertion = null;
-	public Selection selection = null;
+	public Sort sort = null;
 	boolean ft = true;
 
 	public void get_file_data(String path) {
@@ -29,7 +28,7 @@ public class display {
 
 		try {
 			ArrayList<String> al = new ArrayList<String>();
-			Sort sort = new Sort();
+			sort = new Sort();
 			sort.randomString(amount, n1, n2);
 			File f = new File("data.txt");
 			al = sort.getDataset();
@@ -51,7 +50,7 @@ public class display {
 
 		try {
 			ArrayList<String> al = new ArrayList<String>();
-			Sort sort = new Sort();
+			sort = new Sort();
 			sort.randomNumber(amount, n1, n2);
 			File f = new File("data.txt");
 			al = sort.getDataset();
@@ -99,28 +98,26 @@ public class display {
 		}
 		sc.close();
 		content = "";
-		insertion = new Insertion(input);
-		selection = new Selection(input);
 
 		if (type == 0) {
-
-			insertion.aStepByStep();
+			sort = new Insertion(input);
+			sort.aStepByStep();
 
 			ArrayList<String> al = new ArrayList<String>();
 
-			al = insertion.getResult();
+			al = sort.getResult();
 
 			for (int i = 0; i < al.size(); i++) {
 				content += al.get(i) + "\n\r";
 			}
 
 		} else if (type == 1) {
-
-			selection.aStepByStep();
+			sort = new Selection(input);
+			sort.aStepByStep();
 
 			ArrayList<String> al = new ArrayList<String>();
 
-			al = selection.getResult();
+			al = sort.getResult();
 
 			for (int i = 0; i < al.size(); i++) {
 				content += al.get(i) + "\n\r";
@@ -138,28 +135,26 @@ public class display {
 		}
 		sc.close();
 		content = "";
-		insertion = new Insertion(input);
-		selection = new Selection(input);
 
 		if (type == 0) {
-
-			insertion.dStepByStep();
+			sort = new Insertion(input);
+			sort.dStepByStep();
 
 			ArrayList<String> al = new ArrayList<String>();
 
-			al = insertion.getResult();
+			al = sort.getResult();
 
 			for (int i = 0; i < al.size(); i++) {
 				content += al.get(i) + "\n\r";
 			}
 
 		} else if (type == 1) {
-
-			selection.dStepByStep();
+			sort = new Selection(input);
+			sort.dStepByStep();
 
 			ArrayList<String> al = new ArrayList<String>();
 
-			al = selection.getResult();
+			al = sort.getResult();
 
 			for (int i = 0; i < al.size(); i++) {
 				content += al.get(i) + "\n\r";
@@ -182,9 +177,9 @@ public class display {
 
 
 		if (type == 0)
-			content = insertion.previous();
+			content = sort.previous();
 		else if (type == 1)
-			content = selection.previous();
+			content = sort.previous();
 	}
 
 	public void get_next_result(int ad,int type, String data) {
@@ -196,20 +191,23 @@ public class display {
 				input.add(sc.next());
 			}
 			sc.close();
-			insertion = new Insertion(input);
-			selection = new Selection(input);
+			if (type == 0)
+				sort = new Insertion(input);
+			else if (type == 1)
+				sort = new Selection(input);
+
 			ft = false;
 		}
 		if (ad == 0) {
 			if (type == 0) 
-				content = insertion.aNext();
+				content = sort.aNext();
 			else if (type == 1)
-				content = selection.aNext();
+				content = sort.aNext();
 		}else if(ad == 1) {
 			if (type == 0)
-				content = insertion.dNext();
+				content = sort.dNext();
 			else if (type == 1)
-				content = selection.dNext();
+				content = sort.dNext();
 		}
 	}
 
