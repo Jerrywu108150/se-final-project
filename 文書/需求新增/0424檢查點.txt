@@ -12,3 +12,11 @@
 3.甘特圖
 4.新增程式的介紹在簡報上
 5.SRS未完成
+吳竣宇:組長 GUI美化 程式測試 文書修訂 需求定義 
+林碩約:計畫書 甘特圖 程式說明 許育瑋:簡報 版本更新紀錄 
+施賀騰:度量分析書 quick sort 
+顏志騰:GUI建構及設計 
+謝瑞峰:sort模組化 insertion sort和selection sort 
+吳柏儒:風險管理計畫書 
+吳振榮:merge sort 
+江亦賢:SRS
